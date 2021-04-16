@@ -169,11 +169,11 @@ contract TollCrowdSale is MintedCrowdsale, FinalizableCrowdsale {
         uint256 adminAndDevTeamMintAmount = max > 1000 ether ? 1000 ether : max; //
         if (teamFunds[devTeam] <= 500000 ether) {
             teamFunds[devTeam] = adminAndDevTeamMintAmount.add(teamFunds[devTeam]);
-            TOLL.mint(devTeam, adminAndDevTeamMintAmount);
+            TOLL.transfer(devTeam, adminAndDevTeamMintAmount);
         }
         if (teamFunds[adminTeam] <= 500000 ether) {
             teamFunds[adminTeam] = adminAndDevTeamMintAmount.add(teamFunds[adminTeam]);
-            TOLL.mint(adminTeam, adminAndDevTeamMintAmount);
+            TOLL.transfer(adminTeam, adminAndDevTeamMintAmount);
         }
     }
 
@@ -187,10 +187,19 @@ contract TollCrowdSale is MintedCrowdsale, FinalizableCrowdsale {
         TOLL.mint(devTeam, 2000 ether);
         TOLL.mint(salesTeam, 1000 ether);
         TOLL.mint(marketingTeam, 1000 ether);
+        TOLL.mint(address(this), 100000 ether);
         uint256 TeamEther = address(this).balance;
         devTeam.transfer(TeamEther.div(2));
         adminTeam.transfer(TeamEther.div(2));
     }
+    
+    
+    function shutDownMintery() public { // Renounce Minting Role
+        // solium-disable-next-line security/no-block-members */
+         require(block.timestamp > closingTime().add(20 days), "Fees Reclaim Underwal");
+         TOLL.renounceMinter(); // stop minting on this contract
+    }
+    
     function whoSigned(bytes32 message, bytes memory sig)
         internal
         pure
