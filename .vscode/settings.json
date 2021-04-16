@@ -1,0 +1,16 @@
+{
+    
+    "solidity.linter": "solium",
+    "solidity.soliumRules": {
+        "quotes": ["error", "double"],
+        "indentation": ["error", 4]
+    },
+    "solidity.enabledAsYouTypeCompilationErrorCheck": true,
+    "solidity.validationDelay": 1500,
+    "solidity.packageDefaultDependenciesContractsDirectory": "",
+    "solidity.packageDefaultDependenciesDirectory": "node_modules",
+    "solidity.compileUsingRemoteVersion": "soljson-v0.5.17+commit.d19bba13",
+    "solidity.compileUsingLocalVersion": "/sites/contracts/tollfree/soljson-v0.5.17+commit.d19bba13.js",
+    "solidity.defaultCompiler": "localFile",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+}

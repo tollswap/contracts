@@ -1,0 +1,24 @@
+{
+  "name": "tollfree",
+  "version": "1.0.0",
+  "description": "Solidity Contracts for Tollfree Swap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Solidity",
+    "Tollfree"
+  ],
+  "author": "Toll Free",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^2.5.1",
+    "@uniswap/v2-periphery": "*",
+    "solc": "^0.8.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "prettier-plugin-solidity": "*"
+  }
+}
