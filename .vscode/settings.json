@@ -9,8 +9,8 @@
     "solidity.validationDelay": 1500,
     "solidity.packageDefaultDependenciesContractsDirectory": "",
     "solidity.packageDefaultDependenciesDirectory": "node_modules",
-    "solidity.compileUsingRemoteVersion": "soljson-v0.5.17+commit.d19bba13",
-    "solidity.compileUsingLocalVersion": "/sites/contracts/tollfree/soljson-v0.5.17+commit.d19bba13.js",
+    "solidity.compileUsingRemoteVersion": "v0.6.12+commit.27d51765",
+    "solidity.compileUsingLocalVersion": "/sites/contracts/tollfree/soljson-v0.6.12+commit.27d51765.js",
     "solidity.defaultCompiler": "localFile",
     "editor.defaultFormatter": "esbenp.prettier-vscode",
 }
