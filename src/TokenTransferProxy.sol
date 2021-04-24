@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20Mintable.sol";
 
 contract TOLLTransferProxy {
     using SafeMath for uint256;
-    address public TOLL_ADDRESS = 0x420c6C82f5b8184beE86D457fC3D6a9Db6355e34;
+    address public TOLL_ADDRESS = 0xE914e4e9e05B84260d2509b5995030679163Df4d;
     uint256 MINIMUMFEE = 918; //+ 21000 ; //tx fee is not refunded
     uint256 MINTFEE = 14585;
     uint256 APPOVAL_FEES = 46000; // could be more or less

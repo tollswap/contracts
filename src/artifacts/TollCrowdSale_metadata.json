@@ -8,22 +8,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "openingTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "closingTime",
-						"type": "uint256"
-					},
-					{
 						"internalType": "address payable",
 						"name": "wallet",
 						"type": "address"
 					},
 					{
-						"internalType": "contract ERC20Mintable",
+						"internalType": "contract TollERC20",
 						"name": "_token",
 						"type": "address"
 					}
@@ -34,8 +24,46 @@
 			},
 			{
 				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "claimer",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "CLIAMED",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
 				"inputs": [],
 				"name": "CrowdsaleFinalized",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "claimer",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "REFERRALLCLAIM",
 				"type": "event"
 			},
 			{
@@ -96,6 +124,21 @@
 			{
 				"constant": true,
 				"inputs": [],
+				"name": "UniswapPairAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
 				"name": "adminTeam",
 				"outputs": [
 					{
@@ -145,9 +188,23 @@
 						"internalType": "address",
 						"name": "claimer",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "ref",
+						"type": "address"
 					}
 				],
 				"name": "claim",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [],
+				"name": "claimReferral",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -335,8 +392,97 @@
 			},
 			{
 				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "purchase",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
 				"inputs": [],
 				"name": "rate",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "referralClaimed",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "referralClaims",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "referrals",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -562,7 +708,7 @@
 						"beneficiary": "Recipient of the token purchase"
 					}
 				},
-				"claim(uint256,uint256,bytes,address)": {
+				"claim(uint256,uint256,bytes,address,address)": {
 					"details": "claim unpaid toll fees."
 				},
 				"closingTime()": {
@@ -658,20 +804,6 @@
 				"dweb:/ipfs/QmUur1SjJ4yyRTDELyfMZSqjkgBUjLzK8iRVx8YKuZiciz"
 			]
 		},
-		"@openzeppelin/contracts/crowdsale/emission/MintedCrowdsale.sol": {
-			"keccak256": "0x343249b95ade6a20737b7f681a05a257f14a39b21043ff2e31d8e5d861d83777",
-			"urls": [
-				"bzz-raw://ace82fde631b4c630223282ec488c53adf0c53beb99a972736dea0a37351d55c",
-				"dweb:/ipfs/QmdyGt7hjQ3D6JFr1HRaqa2xjS3EZGFomnwsqfjKHckcqx"
-			]
-		},
-		"@openzeppelin/contracts/crowdsale/validation/CappedCrowdsale.sol": {
-			"keccak256": "0x5ae16586a3b5e976aae1a08fdf109ead3840961aa0a1f5b4590d4adf5cdad3b5",
-			"urls": [
-				"bzz-raw://a0afb5b8fdd7fed75baae48c9f0c0c4c5650a152d245da5e790b4d091e261e51",
-				"dweb:/ipfs/QmQXSQcJeASMyDFm81CvodBP2vdDBKqVd7aT6vqTvVVNSP"
-			]
-		},
 		"@openzeppelin/contracts/crowdsale/validation/TimedCrowdsale.sol": {
 			"keccak256": "0x9407dd37cfed74aa107fd1614c478ba0a2bc3e084e9aa8fbd5a6f316c53aed3b",
 			"urls": [
@@ -700,11 +832,32 @@
 				"dweb:/ipfs/QmP5spYP8vs2jvLF8zNrXUbqB79hMsoEvMHiLcBxerWKcm"
 			]
 		},
+		"@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol": {
+			"keccak256": "0x9b94356691f3cbf90a5d83ae3fdf6a5a662bb004d2bd8b034160d60221807e64",
+			"urls": [
+				"bzz-raw://14a9d33db455302b8bb9fdb28998efefbe5a1cb41b29e31391609f646b2ab351",
+				"dweb:/ipfs/Qmd4wFr6GEMZnnxgXeq3gmp7cs8tqDuHp3TVNhCbjnux2V"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/ERC20Detailed.sol": {
+			"keccak256": "0x4a3a810b7ebe742e897e1fd428b3eeed2196d3acea58eaf9c566ed10d545d2ed",
+			"urls": [
+				"bzz-raw://28d03f328e19e4099d5013de0649afaeaabac1a614e130767ab1cb4aca9775b6",
+				"dweb:/ipfs/Qmb9iW7yNuYehB2NfhRMs9TakqbLVQhBhmGMkaDZ5g1Eb4"
+			]
+		},
 		"@openzeppelin/contracts/token/ERC20/ERC20Mintable.sol": {
 			"keccak256": "0xa2b957cf89692c504962afb7506999155f83385373f808243246cd5879de5940",
 			"urls": [
 				"bzz-raw://c44ae0ad1bce141c33b962f8b4e9228bdf8df36c8ac363b4f0bf9498b8bfc32a",
 				"dweb:/ipfs/QmcSBRdFwVvy2wFZrBwo5cvqNP4UHh9Eyzf8jnxBgnPqfe"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/ERC20Pausable.sol": {
+			"keccak256": "0xd5ae72078a1c90af870e1b9b86b0fc05eb14b4034e417bc66d151d3eb4d342ca",
+			"urls": [
+				"bzz-raw://32a5f0d4de7c26125441e9b78a49de90cd30c467216fb8f69dc0b1f03c6e253c",
+				"dweb:/ipfs/QmcuFRFJ4KNkvYRAmcs1t1fap1i3rRbJghWGqiaSNafdjp"
 			]
 		},
 		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
@@ -743,10 +896,17 @@
 			]
 		},
 		"src/Presale.sol": {
-			"keccak256": "0x97538d7b0312345cab2dd67f7b1d9bab2d6c25bbad4c7f1c6666996a70e0a5eb",
+			"keccak256": "0xfd0e4fd31628bf18b28a55f48468adc7fccc56a6cb17a7f0bc16c2ac42096115",
 			"urls": [
-				"bzz-raw://cc60817519ef3f1f6fe810ddc537a6c744affaec483f45a24beb0e7fc90ab6a0",
-				"dweb:/ipfs/QmWL2vKvDbBsJrBAuXcRxRdEJWqpTriSugEaE8x9MXr4V8"
+				"bzz-raw://4011fec105ff53298719cd3658ea5df5ffe606c66bf9fe852c4ca55404687896",
+				"dweb:/ipfs/QmaptGnrRs6ZNzytm5o1LL8T7qLkFQWSnQXV7UifaSVrzN"
+			]
+		},
+		"src/TOLL.sol": {
+			"keccak256": "0x510c7b1a0736bdcca7c3a892bcf6ee9939086c647d70fd418721b2ae8dd89fc8",
+			"urls": [
+				"bzz-raw://438f5c7baa44e39b0e65302b311f4141b54054b4bb0f9a109e3603e64e87921f",
+				"dweb:/ipfs/QmRaPbKJgv5SL95csPKwaqnmapdvavoX8enr6cGvfRuJsd"
 			]
 		}
 	},
