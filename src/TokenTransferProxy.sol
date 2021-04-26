@@ -5,12 +5,17 @@ import "@openzeppelin/contracts/token/ERC20/ERC20Mintable.sol";
 
 contract TOLLTransferProxy {
     using SafeMath for uint256;
-    address public TOLL_ADDRESS = 0xE914e4e9e05B84260d2509b5995030679163Df4d;
+    address public TOLL_ADDRESS = 0x66AD14B3739d2cC9E9252f69caDD2fAb3c728924;
     uint256 MINIMUMFEE = 918; //+ 21000 ; //tx fee is not refunded
     uint256 MINTFEE = 14585;
     uint256 APPOVAL_FEES = 46000; // could be more or less
     mapping(address => uint256) public approvals;
     ERC20Mintable private TOLL;
+     event refund (
+        address indexed token,
+        address indexed sender,
+        uint256  refund
+    );
     constructor() public {
         TOLL = ERC20Mintable(TOLL_ADDRESS);
     }
@@ -29,6 +34,7 @@ contract TOLLTransferProxy {
             "Transfer failed failed."
         );
         setApproval(token, msg.sender);
+        emit refund(token, msg.sender, tx.gasprice.mul((fees.add(MINTFEE.add(approvalFees))).sub(gasleft())));
         TOLL.mint(
             msg.sender,
             tx.gasprice.mul((fees.add(MINTFEE.add(approvalFees))).sub(gasleft()))

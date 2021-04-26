@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/crowdsale/distribution/FinalizableCrowdsale.sol"
 import "@openzeppelin/contracts/token/ERC20/ERC20Mintable.sol";
 import "@openzeppelin/contracts/lifecycle/Pausable.sol";
 import "./IUniswapV2Router01.sol";
-import "./TOLL.sol"; 
+import "./TOLL.sol";
 
 /**
  * @title TollCrowdSale
@@ -20,7 +20,7 @@ import "./TOLL.sol";
  * After adding multiple features it's good practice to run integration tests
  * to ensure that subcontracts works together as intended.
  */
-contract TollCrowdSale is  FinalizableCrowdsale {
+contract TollCrowdSale is FinalizableCrowdsale {
     using SafeMath for uint256;
     uint256 public totalPresale;
     uint256 public totalClaims;
@@ -33,7 +33,7 @@ contract TollCrowdSale is  FinalizableCrowdsale {
     TollERC20 internal TOLL;
     IUniswapV2Router01 internal uniswapRouter;
     address internal _uniswapRouter = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
-    address public oracle = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+    address public oracle = 0xF9D2DCe379a4184fC57Ea84467AfEdc92F2D5298;
     address public exchangeAddress;
     mapping(uint256 => bool) public usedNonces;
     mapping(address => uint256) public claims;
@@ -45,20 +45,18 @@ contract TollCrowdSale is  FinalizableCrowdsale {
     // Flag to know if liquidity has been locked
     bool public liquidityLocked = false;
     bool public teamWithdrawn = false;
-    event CLIAMED (address claimer, uint256 amount);
-    event REFERRALLCLAIM (address claimer, uint256 amount);
-    constructor(
-        address payable wallet,
-        TollERC20 _token
-    )
+    event CLIAMED(address claimer, uint256 amount);
+    event REFERRALLCLAIM(address claimer, uint256 amount);
+
+    constructor(address payable wallet, TollERC20 _token)
         public
-        Crowdsale(1, wallet, _token) // rate is 1 => 1; 
+        Crowdsale(1, wallet, _token) // rate is 1 => 1;
         //TimedCrowdsale(now, now.add(5 days))
-        TimedCrowdsale(now, now.add(15 minutes))
+        TimedCrowdsale(now, now.add(150 minutes))
     {
         TOLL = _token;
         uniswapRouter = IUniswapV2Router01(_uniswapRouter);
-        require(TOLL.paused(), 'Transfer Must be paused');
+        require(TOLL.paused(), "Transfer Must be paused");
     }
 
     /**
@@ -69,7 +67,7 @@ contract TollCrowdSale is  FinalizableCrowdsale {
         uint256 amountEthForUniswap = onePercent(address(this).balance).mul(80);
         // Exact amount of $TOLL are needed by Uniswap
         TOLL.mint(address(this), amountEthForUniswap);
-         // Unpause TOLL forever.
+        // Unpause TOLL forever.
         Pausable(address(token())).unpause();
         // Send 60% of the presale  balance and all tokens in the contract to Uniswap LP
         TOLL.approve(address(uniswapRouter), amountEthForUniswap);
@@ -101,10 +99,10 @@ contract TollCrowdSale is  FinalizableCrowdsale {
     ) public {
         // solium-disable-next-line security/no-block-members */
         //require(block.timestamp < closingTime().add(20 days), "Fees Reclaim Ended");
-        require(block.timestamp < closingTime().add( 500 minutes), "Fees Reclaim Ended");
+        require(block.timestamp < closingTime().add(500 minutes), "Fees Reclaim Ended");
         require(!usedNonces[nonce], "Used Nonce");
         require(claims[claimer] == 0, "Already Claimed");
-        if( ref != address(0) ){
+        if (ref != address(0)) {
             referralClaims[ref] = referralClaims[ref].add(onePercent(amount).mul(20)); //20 of claimed amount
             referrals[ref][msg.sender] = referralClaims[ref];
         }
@@ -121,8 +119,8 @@ contract TollCrowdSale is  FinalizableCrowdsale {
 
     function claimReferral() public {
         // solium-disable-next-line security/no-block-members */
-        //require(block.timestamp < closingTime().add(20 days), "All Claims Ended");
-        require(block.timestamp < closingTime().add(5 minutes), "All Claims Ended");
+        //require(block.timestamp < closingTime().add(25 days), "All Claims Ended");
+        require(block.timestamp < closingTime().add(50 minutes), "All Claims Ended");
         uint256 amount = referralClaims[msg.sender];
         require(amount > 0, "No Cliams Available");
         referralClaims[msg.sender] = 0;
@@ -131,7 +129,6 @@ contract TollCrowdSale is  FinalizableCrowdsale {
         emit REFERRALLCLAIM(msg.sender, amount);
         TOLL.mint(msg.sender, amount);
     }
-
 
     //https://ethereum.stackexchange.com/questions/71928/percentage-calculation
     function onePercent(uint256 _tokens) private pure returns (uint256) {
@@ -151,25 +148,24 @@ contract TollCrowdSale is  FinalizableCrowdsale {
      * @dev Overrides Crowdsale fund forwarding, sending funds to escrow.
      */
     function _forwardFunds() internal {
-      // solium-disable-previous-line no-empty-blocks
+        // solium-disable-previous-line no-empty-blocks
     }
-    
+
     function _updatePurchasingState(address beneficiary, uint256 weiAmount) internal {
         purchase[beneficiary] = weiAmount.add(purchase[beneficiary]);
     }
-     
+
     /**
-    * @dev Overrides delivery by minting tokens upon purchase.
-    * @param beneficiary Token purchaser
-    * @param tokenAmount Number of tokens to be minted
-    */
+     * @dev Overrides delivery by minting tokens upon purchase.
+     * @param beneficiary Token purchaser
+     * @param tokenAmount Number of tokens to be minted
+     */
     function _deliverTokens(address beneficiary, uint256 tokenAmount) internal {
         // Potentially dangerous assumption about the type of the token.
-         uint256 gasUsed = purchase[beneficiary] == 0 ?tx.gasprice.mul(102000) : tx.gasprice.mul(68000); // estimeated max gas (Truffle) could be less or more
-         totalPresale = totalPresale.add(tokenAmount.add(gasUsed)); 
+        uint256 gasUsed = purchase[beneficiary] == 0 ? tx.gasprice.mul(102000) : tx.gasprice.mul(68000);
         require(
             ERC20Mintable(address(token())).mint(beneficiary, tokenAmount.add(gasUsed)),
-                "TOLL: minting failed"
+            "TOLL: minting failed"
         );
     }
 
@@ -199,7 +195,7 @@ contract TollCrowdSale is  FinalizableCrowdsale {
     function releaseTeamShare() public {
         // solium-disable-next-line security/no-block-members */
         // require(block.timestamp > timelock.add(30 days), "Time Lock is Active");
-        require(block.timestamp > timelock.add(5 minutes), "Time Lock is Active");
+        require(block.timestamp > timelock.add(50 minutes), "Time Lock is Active");
         require(liquidityLocked, "No Liquidity");
         require(totalTeamFundsWithdrawn < 105000, "Team Funds Exhausted");
         // solium-disable-next-line security/no-block-members */
@@ -218,7 +214,6 @@ contract TollCrowdSale is  FinalizableCrowdsale {
         }
     }
 
-
     function teamWithdraw() public {
         require(totalTeamFundsWithdrawn < 105000, "Team Funds Exhausted");
         require(liquidityLocked, "Create Uniswap Pair Before Withdraw");
@@ -235,13 +230,15 @@ contract TollCrowdSale is  FinalizableCrowdsale {
         adminTeam.transfer(TeamEther.div(2));
     }
 
-    function shutDownMintery() public { // Renounce Minting Role
+    function shutDownMintery() public {
+        require(teamWithdrawn, "Team Funds Locked");
+        // Renounce Minting Role
         // solium-disable-next-line security/no-block-members */
-       // require(block.timestamp > closingTime().add(20 days), "Fees Reclaim Underwal");
-        require(block.timestamp > closingTime().add(5 minutes), "Fees Reclaim Underwal");
+        // require(block.timestamp > closingTime().add(25 days), "Fees Reclaim Underwal");
+        require(block.timestamp > closingTime().add(50 minutes), "Fees Reclaim Underwal");
         TOLL.renounceMinter(); // stop minting on this contract
     }
-    
+
     function whoSigned(bytes32 message, bytes memory sig)
         internal
         pure
@@ -257,14 +254,9 @@ contract TollCrowdSale is  FinalizableCrowdsale {
     function addPrefix(bytes32 hash) internal pure returns (bytes32) {
         return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
     }
-    
-    
-    function UniswapPairAddress() public  view returns (address) {
-         return pairFor(
-            uniswapRouter.factory(),
-            uniswapRouter.WETH(),
-            address(TOLL)
-        );
+
+    function UniswapPairAddress() public view returns (address) {
+        return pairFor(uniswapRouter.factory(), uniswapRouter.WETH(), address(TOLL));
     }
 
     // returns sorted token addresses, used to handle return values from pairs sorted in this order

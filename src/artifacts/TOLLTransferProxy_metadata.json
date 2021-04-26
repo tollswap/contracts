@@ -12,6 +12,31 @@
 				"type": "constructor"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "refund",
+						"type": "uint256"
+					}
+				],
+				"name": "refund",
+				"type": "event"
+			},
+			{
 				"constant": true,
 				"inputs": [],
 				"name": "TOLL_ADDRESS",
@@ -143,10 +168,10 @@
 			]
 		},
 		"src/TokenTransferProxy.sol": {
-			"keccak256": "0xc13bda7700d8459b3bc22c88c99735c4ca48a67d96d3b11d9bcbd09ad72c58df",
+			"keccak256": "0xf7dc174975a688f2601805812f4c089d68287842090f84391df6b72cf4ce10fb",
 			"urls": [
-				"bzz-raw://0130ef1117c68ab390bffa6eef0324c41ea1b5a309d93a5da6944251bd16f15b",
-				"dweb:/ipfs/QmXSWWtLGpJKXW3PbyeMRbpPtbtQwRNn5jXyZcw1n4Hwb6"
+				"bzz-raw://242aa19aab9b873415cf5ff284e0d26f6131da26b2502d91d37a1767fd916b2d",
+				"dweb:/ipfs/QmSXUBQStoRtaCfqegBSWhBW86E75fhPXPskWrn4PPqJj4"
 			]
 		}
 	},
