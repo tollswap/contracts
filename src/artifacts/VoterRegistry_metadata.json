@@ -1,0 +1,783 @@
+{
+	"compiler": {
+		"version": "0.5.17+commit.d19bba13"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					}
+				],
+				"name": "Burned",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "delegator",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "fromDelegate",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "toDelegate",
+						"type": "address"
+					}
+				],
+				"name": "DelegateChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "delegate",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "previousBalance",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "newBalance",
+						"type": "uint256"
+					}
+				],
+				"name": "DelegateVotesChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					}
+				],
+				"name": "Exited",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					}
+				],
+				"name": "Locked",
+				"type": "event"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "DELEGATION_TYPEHASH",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "DOMAIN_TYPEHASH",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					}
+				],
+				"name": "burn",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "burnOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint32",
+						"name": "",
+						"type": "uint32"
+					}
+				],
+				"name": "checkpoints",
+				"outputs": [
+					{
+						"internalType": "uint32",
+						"name": "fromBlock",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint96",
+						"name": "votes",
+						"type": "uint96"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "config",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "delegatee",
+						"type": "address"
+					}
+				],
+				"name": "delegate",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "delegatee",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "nonce",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "expiry",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "v",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "r",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "s",
+						"type": "bytes32"
+					}
+				],
+				"name": "delegateBySig",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "delegates",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					}
+				],
+				"name": "exit",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "getCurrentVotes",
+				"outputs": [
+					{
+						"internalType": "uint96",
+						"name": "",
+						"type": "uint96"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "blockNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "getPriorVotes",
+				"outputs": [
+					{
+						"internalType": "uint96",
+						"name": "",
+						"type": "uint96"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "governance",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "transactor",
+						"type": "address"
+					}
+				],
+				"name": "isEligible",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "lock",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "lockOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "lockTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					}
+				],
+				"name": "lockVotes",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "minimum",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "name",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "nonces",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "numCheckpoints",
+				"outputs": [
+					{
+						"internalType": "uint32",
+						"name": "",
+						"type": "uint32"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "period",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "proposalCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "proposals",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "proposer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalForVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalAgainstVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "start",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "end",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "toll",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "totalBurned",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "voteLock",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "voteOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {
+				"delegate(address)": {
+					"params": {
+						"delegatee": "The address to delegate votes to"
+					}
+				},
+				"delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)": {
+					"params": {
+						"delegatee": "The address to delegate votes to",
+						"expiry": "The time at which to expire the signature",
+						"nonce": "The contract state required to match the signature",
+						"r": "Half of the ECDSA signature pair",
+						"s": "Half of the ECDSA signature pair",
+						"v": "The recovery byte of the signature"
+					}
+				},
+				"getCurrentVotes(address)": {
+					"params": {
+						"account": "The address to get votes balance"
+					},
+					"return": "The number of current votes for `account`"
+				},
+				"getPriorVotes(address,uint256)": {
+					"details": "Block number must be a finalized block or else this function will revert to prevent misinformation.",
+					"params": {
+						"account": "The address of the account to check",
+						"blockNumber": "The block number to get the vote balance at"
+					},
+					"return": "The number of votes the account had as of the given block"
+				},
+				"isEligible(address)": {
+					"params": {
+						"transactor": "The address performing the transaction"
+					}
+				}
+			}
+		},
+		"userdoc": {
+			"methods": {
+				"delegate(address)": {
+					"notice": "Delegate votes from `msg.sender` to `delegatee`"
+				},
+				"delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)": {
+					"notice": "Delegates votes from signatory to `delegatee`"
+				},
+				"getCurrentVotes(address)": {
+					"notice": "Gets the current votes balance for `account`"
+				},
+				"getPriorVotes(address,uint256)": {
+					"notice": "Determine the prior number of votes for an account as of a block number"
+				},
+				"isEligible(address)": {
+					"notice": "check if a user is eligible to earn Fees refunds"
+				}
+			}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/VotersRegistry.sol": "VoterRegistry"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"src/VotersRegistry.sol": {
+			"keccak256": "0x68a17ea418fdf1341f8c292f088622cf17e51c9681a3acf696a80efa31c1515e",
+			"urls": [
+				"bzz-raw://9d7c04d2d97fb897eca768acb3e0cbae0e619a84be372b21b8f1d9926f18cd32",
+				"dweb:/ipfs/QmcV4bMPAaXCm2ovVRU4a38GY77eVwotpqywcyYwLaw4sx"
+			]
+		}
+	},
+	"version": 1
+}

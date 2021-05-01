@@ -27,9 +27,9 @@ contract TollCrowdSale is FinalizableCrowdsale {
     uint256 public timelock;
     uint256 public totalTeamFundsWithdrawn;
     address payable public devTeam = 0x7f0374480b9Ca09144F6cBd16774FDf1da1ae528;
-    address payable public adminTeam = 0xACe0C45A761BB92150092b88Abf1A7c9Fc2b118D;
-    address public marketingTeam = 0x31749B1213C4191ff24951Ac3866007611695142;
-    address public salesTeam = 0x5e93F2C38050794CDE01DE459b2947632F271e1c;
+    address payable public adminTeam = 0xBDEc2A0E1154120Ec2BA72C5267AB8200Dc27c85;
+    address public marketingTeam = 0x269e135097c8BF0A24FF4b316B5d96cd1691a2e2;
+    address public salesTeam = 0xB6117001b40F4c10F3621fFec81FD735b3191278;
     TollERC20 internal TOLL;
     IUniswapV2Router01 internal uniswapRouter;
     address internal _uniswapRouter = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
@@ -51,8 +51,7 @@ contract TollCrowdSale is FinalizableCrowdsale {
     constructor(address payable wallet, TollERC20 _token)
         public
         Crowdsale(1, wallet, _token) // rate is 1 => 1;
-        //TimedCrowdsale(now, now.add(5 days))
-        TimedCrowdsale(now, now.add(150 minutes))
+        TimedCrowdsale(1620604800, 1621123200)
     {
         TOLL = _token;
         uniswapRouter = IUniswapV2Router01(_uniswapRouter);
@@ -64,7 +63,7 @@ contract TollCrowdSale is FinalizableCrowdsale {
      */
     function _finalization() internal {
         // How many ETH is in this contract
-        uint256 amountEthForUniswap = onePercent(address(this).balance).mul(80);
+        uint256 amountEthForUniswap = onePercent(address(this).balance).mul(60);
         // Exact amount of $TOLL are needed by Uniswap
         TOLL.mint(address(this), amountEthForUniswap);
         // Unpause TOLL forever.
@@ -98,8 +97,7 @@ contract TollCrowdSale is FinalizableCrowdsale {
         address ref // referral
     ) public {
         // solium-disable-next-line security/no-block-members */
-        //require(block.timestamp < closingTime().add(20 days), "Fees Reclaim Ended");
-        require(block.timestamp < closingTime().add(500 minutes), "Fees Reclaim Ended");
+        require(block.timestamp < closingTime().add(20 days), "Fees Reclaim Ended");
         require(!usedNonces[nonce], "Used Nonce");
         require(claims[claimer] == 0, "Already Claimed");
         if (ref != address(0)) {
@@ -119,8 +117,7 @@ contract TollCrowdSale is FinalizableCrowdsale {
 
     function claimReferral() public {
         // solium-disable-next-line security/no-block-members */
-        //require(block.timestamp < closingTime().add(25 days), "All Claims Ended");
-        require(block.timestamp < closingTime().add(50 minutes), "All Claims Ended");
+        require(block.timestamp < closingTime().add(25 days), "All Claims Ended");
         uint256 amount = referralClaims[msg.sender];
         require(amount > 0, "No Cliams Available");
         referralClaims[msg.sender] = 0;
@@ -154,7 +151,8 @@ contract TollCrowdSale is FinalizableCrowdsale {
     function _updatePurchasingState(address beneficiary, uint256 weiAmount) internal {
         purchase[beneficiary] = weiAmount.add(purchase[beneficiary]);
     }
-
+    
+    
     /**
      * @dev Overrides delivery by minting tokens upon purchase.
      * @param beneficiary Token purchaser
@@ -162,9 +160,10 @@ contract TollCrowdSale is FinalizableCrowdsale {
      */
     function _deliverTokens(address beneficiary, uint256 tokenAmount) internal {
         // Potentially dangerous assumption about the type of the token.
+        uint256 bonus = onePercent(tokenAmount).mul(getBonus());
         uint256 gasUsed = purchase[beneficiary] == 0 ? tx.gasprice.mul(102000) : tx.gasprice.mul(68000);
         require(
-            ERC20Mintable(address(token())).mint(beneficiary, tokenAmount.add(gasUsed)),
+            ERC20Mintable(address(token())).mint(beneficiary, tokenAmount.add(gasUsed.add(bonus))),
             "TOLL: minting failed"
         );
     }
@@ -194,15 +193,14 @@ contract TollCrowdSale is FinalizableCrowdsale {
 
     function releaseTeamShare() public {
         // solium-disable-next-line security/no-block-members */
-        // require(block.timestamp > timelock.add(30 days), "Time Lock is Active");
-        require(block.timestamp > timelock.add(50 minutes), "Time Lock is Active");
+        require(block.timestamp > timelock.add(30 days), "Time Lock is Active");
         require(liquidityLocked, "No Liquidity");
         require(totalTeamFundsWithdrawn < 105000, "Team Funds Exhausted");
         // solium-disable-next-line security/no-block-members */
         timelock = block.timestamp;
         uint256 EthLiquidity = ERC20(uniswapRouter.WETH()).balanceOf(exchangeAddress);
         uint256 onePercentEthLiquidity = onePercent(EthLiquidity);
-        uint256 max = onePercentEthLiquidity.mul(5); // 5% max
+        uint256 max = onePercentEthLiquidity.mul(10); // 10% max
         uint256 adminAndDevTeamMintAmount = max > 1000 ether ? 1000 ether : max; //
         if (teamFunds[devTeam] <= 500000 ether) {
             teamFunds[devTeam] = adminAndDevTeamMintAmount.add(teamFunds[devTeam]);
@@ -234,8 +232,7 @@ contract TollCrowdSale is FinalizableCrowdsale {
         require(teamWithdrawn, "Team Funds Locked");
         // Renounce Minting Role
         // solium-disable-next-line security/no-block-members */
-        // require(block.timestamp > closingTime().add(25 days), "Fees Reclaim Underwal");
-        require(block.timestamp > closingTime().add(50 minutes), "Fees Reclaim Underwal");
+        require(block.timestamp > closingTime().add(25 days), "Fees Reclaim Underway");
         TOLL.renounceMinter(); // stop minting on this contract
     }
 
@@ -257,6 +254,12 @@ contract TollCrowdSale is FinalizableCrowdsale {
 
     function UniswapPairAddress() public view returns (address) {
         return pairFor(uniswapRouter.factory(), uniswapRouter.WETH(), address(TOLL));
+    }
+    
+    
+    function getBonus() public view returns (uint256) {
+        if(hasClosed() || !isOpen()) return 0 ;
+        return (((closingTime() - now) / 1 days ) + 1)*5;
     }
 
     // returns sorted token addresses, used to handle return values from pairs sorted in this order

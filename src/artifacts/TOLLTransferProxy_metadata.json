@@ -168,10 +168,10 @@
 			]
 		},
 		"src/TokenTransferProxy.sol": {
-			"keccak256": "0xf7dc174975a688f2601805812f4c089d68287842090f84391df6b72cf4ce10fb",
+			"keccak256": "0xcf2e98084dd2541acc2033e48bc8e33ac6bbad59b22351ad35b6953a6eb45520",
 			"urls": [
-				"bzz-raw://242aa19aab9b873415cf5ff284e0d26f6131da26b2502d91d37a1767fd916b2d",
-				"dweb:/ipfs/QmSXUBQStoRtaCfqegBSWhBW86E75fhPXPskWrn4PPqJj4"
+				"bzz-raw://9710963d25d3006e341330e9c79ca63066011aed2590a1eca485f0ae6a0b4175",
+				"dweb:/ipfs/QmczLMXivDpDxy32SNZEYKJfVdbPsXhhfNgbxiBxCXZiTr"
 			]
 		}
 	},

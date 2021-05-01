@@ -303,6 +303,21 @@
 			{
 				"constant": true,
 				"inputs": [],
+				"name": "getBonus",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
 				"name": "hasClosed",
 				"outputs": [
 					{
@@ -896,10 +911,10 @@
 			]
 		},
 		"src/Presale.sol": {
-			"keccak256": "0xa06f7b9acda7d20f46f1da4e5206b7002dbb30d5a64b27e7db90d82c01ee3024",
+			"keccak256": "0x0217ac4b74889a4a9f328b1a22d2c61b9192ecf39a36d09a503f15c0cd342c59",
 			"urls": [
-				"bzz-raw://59dde350ca95bf83984cf66eacc864190981acc93c8eca4480c394fadb10fb41",
-				"dweb:/ipfs/QmTEz3wmQmsq8fJ77cnrVBzXwdQh8SNTS5U5oDK3HnGScX"
+				"bzz-raw://16c65ffd9c5b1d3d8a6281494a6ecb87e450356df88cc4d227886590ca00e18d",
+				"dweb:/ipfs/QmbzN3bidY9KeCiuDGVbm56oYcmreEMMPTgaTPKHVaAnKX"
 			]
 		},
 		"src/TOLL.sol": {

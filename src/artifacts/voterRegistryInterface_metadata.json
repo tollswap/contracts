@@ -1,0 +1,71 @@
+{
+	"compiler": {
+		"version": "0.5.17+commit.d19bba13"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "blockNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "getPriorVotes",
+				"outputs": [
+					{
+						"internalType": "uint96",
+						"name": "",
+						"type": "uint96"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/GovernorAlpha.sol": "voterRegistryInterface"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/math/SafeMath.sol": {
+			"keccak256": "0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076",
+			"urls": [
+				"bzz-raw://31113152e1ddb78fe7a4197f247591ca894e93f916867beb708d8e747b6cc74f",
+				"dweb:/ipfs/QmbZaJyXdpsYGykVhHH9qpVGQg9DGCxE2QufbCUy3daTgq"
+			]
+		},
+		"src/GovernorAlpha.sol": {
+			"keccak256": "0x35f9ed41651d6fad5e3dd58dc3eca3a36e5ef15d1fd68df86e28eef63e7f2d56",
+			"urls": [
+				"bzz-raw://9742241f0882bb3674aa116e8bb82157c6c9221af340adfdb6825aa7570eeed0",
+				"dweb:/ipfs/QmNoJ1a6uAv4hRrMLbhinyGR5ipQHK5CaT2t4ybgDwRAMH"
+			]
+		}
+	},
+	"version": 1
+}
