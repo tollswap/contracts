@@ -38,7 +38,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"src/UniswapV2Proxy.sol": "IVotersRegistry"
+			"src/UniswapVXProxy.sol": "IVotersRegistry"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -95,12 +95,12 @@
 				"dweb:/ipfs/QmevHusaMw5EqrmuVMpcgpif3TDatN9XUVdueYuPyVNsap"
 			]
 		},
-		"src/UniswapV2Proxy.sol": {
-			"keccak256": "0xc1915e2bf08f3620255b882b95a2c23eb89afc89005083e6788aecadb969c771",
+		"src/UniswapVXProxy.sol": {
+			"keccak256": "0xa8c53eb78becd7cb06c518ef147578d0734a4c8a606fd0f9a0e42aa8114f4d0b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://70841f3c12475a3a922895049b428ce959027209355d32369b84770cb4d023e6",
-				"dweb:/ipfs/QmafCVc3849QycMx62YnEX2AhHBqhUfNdEbYnmrTL4v1p7"
+				"bzz-raw://ab776c31c567253f461cb28d3486f8deb3ec0665b6cbf2099b45cef58b538cbb",
+				"dweb:/ipfs/QmZeHYZJHMKYqdTxQ4jNsVMgcgxi3AMajGWCmQsP4FJPU5"
 			]
 		}
 	},

@@ -37,7 +37,6 @@
 			"sourceMap": ""
 		},
 		"deployedBytecode": {
-			"immutableReferences": {},
 			"linkReferences": {},
 			"object": "",
 			"opcodes": "",
@@ -68,6 +67,7 @@
 	},
 	"abi": [
 		{
+			"constant": true,
 			"inputs": [],
 			"name": "WETH",
 			"outputs": [
@@ -77,10 +77,12 @@
 					"type": "address"
 				}
 			],
-			"stateMutability": "pure",
+			"payable": false,
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
@@ -141,10 +143,12 @@
 					"type": "uint256"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
@@ -195,10 +199,12 @@
 					"type": "uint256"
 				}
 			],
+			"payable": true,
 			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
+			"constant": true,
 			"inputs": [],
 			"name": "factory",
 			"outputs": [
@@ -208,10 +214,12 @@
 					"type": "address"
 				}
 			],
-			"stateMutability": "pure",
+			"payable": false,
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{
+			"constant": true,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -237,10 +245,12 @@
 					"type": "uint256"
 				}
 			],
-			"stateMutability": "pure",
+			"payable": false,
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{
+			"constant": true,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -266,10 +276,12 @@
 					"type": "uint256"
 				}
 			],
-			"stateMutability": "pure",
+			"payable": false,
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{
+			"constant": true,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -290,10 +302,12 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": false,
 			"stateMutability": "view",
 			"type": "function"
 		},
 		{
+			"constant": true,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -314,10 +328,12 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": false,
 			"stateMutability": "view",
 			"type": "function"
 		},
 		{
+			"constant": true,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -343,10 +359,12 @@
 					"type": "uint256"
 				}
 			],
-			"stateMutability": "pure",
+			"payable": false,
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
@@ -397,10 +415,12 @@
 					"type": "uint256"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
@@ -446,10 +466,12 @@
 					"type": "uint256"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
@@ -515,10 +537,12 @@
 					"type": "uint256"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
@@ -589,10 +613,12 @@
 					"type": "uint256"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -623,10 +649,12 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": true,
 			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -657,10 +685,12 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": true,
 			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -696,10 +726,12 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -735,10 +767,12 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -774,10 +808,12 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
+			"constant": false,
 			"inputs": [
 				{
 					"internalType": "uint256",
@@ -813,6 +849,7 @@
 					"type": "uint256[]"
 				}
 			],
+			"payable": false,
 			"stateMutability": "nonpayable",
 			"type": "function"
 		}

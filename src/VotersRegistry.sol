@@ -1,8 +1,5 @@
-
-// File: @openzeppelin/contracts/math/Math.sol
-
 pragma solidity ^0.5.0;
-
+// File: @openzeppelin/contracts/math/Math.sol
 /**
  * @dev Standard math utilities missing in the Solidity language.
  */
@@ -513,8 +510,6 @@ library SafeERC20 {
 
 
 // Toll Votes
-
-pragma solidity ^0.5.0;
 contract VoterRegistry {   // this contract allows long time users of toll to vote on items
     using SafeMath for uint256;
     using SafeERC20 for IERC20;

@@ -9,7 +9,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "admin_",
+						"name": "governor_",
 						"type": "address"
 					},
 					{
@@ -113,19 +113,6 @@
 				"inputs": [
 					{
 						"indexed": true,
-						"internalType": "address",
-						"name": "newAdmin",
-						"type": "address"
-					}
-				],
-				"name": "NewAdmin",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
 						"internalType": "uint256",
 						"name": "newDelay",
 						"type": "uint256"
@@ -140,11 +127,24 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "newPendingAdmin",
+						"name": "newGovernor",
 						"type": "address"
 					}
 				],
-				"name": "NewPendingAdmin",
+				"name": "NewGovernor",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newPendingGovernor",
+						"type": "address"
+					}
+				],
+				"name": "NewPendingGovernor",
 				"type": "event"
 			},
 			{
@@ -243,25 +243,10 @@
 			{
 				"constant": false,
 				"inputs": [],
-				"name": "acceptAdmin",
+				"name": "acceptGovernor",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [],
-				"name": "admin",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -358,7 +343,22 @@
 			{
 				"constant": true,
 				"inputs": [],
-				"name": "pendingAdmin",
+				"name": "governor",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "pendingGovernor",
 				"outputs": [
 					{
 						"internalType": "address",
@@ -452,11 +452,11 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "pendingAdmin_",
+						"name": "pendingGovernor_",
 						"type": "address"
 					}
 				],
-				"name": "setPendingAdmin",
+				"name": "setPendingGovernor",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -491,10 +491,10 @@
 			]
 		},
 		"src/Timelock.sol": {
-			"keccak256": "0x089cf36005a994e0b3a78ddb1a6a73135538c9b846a380a41466ec3995a6dfe6",
+			"keccak256": "0xb406a6fef035daddbb88ebc38b6ed3413645f684350d7d3a3602369c7731d4f4",
 			"urls": [
-				"bzz-raw://07e8a97b491a0149c406d3ae610cd2e10706021bd30020dfa61fa57768672689",
-				"dweb:/ipfs/QmNrYxAN33YWChPgZDve4khZPfybXqqJfo2gLA4npKtSeZ"
+				"bzz-raw://3ecad92bb183c79196e45d2b3d45ffe6aae2cc6cb462108c7a65a1dc50684aa9",
+				"dweb:/ipfs/QmQUqAfRypKffZdfc1igpKxjYtk21C1f89S9jZ9TEMP8XF"
 			]
 		}
 	},

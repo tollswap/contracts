@@ -1,11 +1,12 @@
 {
 	"compiler": {
-		"version": "0.6.12+commit.27d51765"
+		"version": "0.5.17+commit.d19bba13"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
 			{
+				"constant": true,
 				"inputs": [],
 				"name": "WETH",
 				"outputs": [
@@ -15,10 +16,12 @@
 						"type": "address"
 					}
 				],
+				"payable": false,
 				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -79,10 +82,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -133,10 +138,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": true,
 				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
+				"constant": true,
 				"inputs": [],
 				"name": "factory",
 				"outputs": [
@@ -146,10 +153,12 @@
 						"type": "address"
 					}
 				],
+				"payable": false,
 				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
+				"constant": true,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -175,10 +184,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
+				"constant": true,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -204,10 +215,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
+				"constant": true,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -228,10 +241,12 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": false,
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
+				"constant": true,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -252,10 +267,12 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": false,
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
+				"constant": true,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -281,10 +298,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -335,10 +354,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -384,10 +405,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -453,10 +476,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -527,10 +552,12 @@
 						"type": "uint256"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -561,10 +588,12 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": true,
 				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -595,10 +624,12 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": true,
 				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -634,10 +665,12 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -673,10 +706,12 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -712,10 +747,12 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
+				"constant": false,
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -751,19 +788,16 @@
 						"type": "uint256[]"
 					}
 				],
+				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
 		"devdoc": {
-			"kind": "dev",
-			"methods": {},
-			"version": 1
+			"methods": {}
 		},
 		"userdoc": {
-			"kind": "user",
-			"methods": {},
-			"version": 1
+			"methods": {}
 		}
 	},
 	"settings": {
@@ -772,9 +806,6 @@
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
-		"metadata": {
-			"bytecodeHash": "ipfs"
-		},
 		"optimizer": {
 			"enabled": false,
 			"runs": 200
@@ -784,7 +815,6 @@
 	"sources": {
 		"src/IUniswapV2Router01.sol": {
 			"keccak256": "0x808a465d67a4e7ecdf67302c197f895da36f6bbaa2888e8ed0df9fc38e6052b4",
-			"license": "MIT",
 			"urls": [
 				"bzz-raw://5025127ce3071d77b743e3e29687375c608462024e393ea034c937adf00632b6",
 				"dweb:/ipfs/QmURekP3pvpCfiK9NZD2rHUux2WqR5MXXLUE69A2KnuFGg"

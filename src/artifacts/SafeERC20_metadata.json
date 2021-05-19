@@ -28,10 +28,10 @@
 	},
 	"sources": {
 		"src/VotersRegistry.sol": {
-			"keccak256": "0x68a17ea418fdf1341f8c292f088622cf17e51c9681a3acf696a80efa31c1515e",
+			"keccak256": "0x3617d1e28de6d6dca2c1c208641187597f18f39a74ab11d7ce3bc820c5a7af26",
 			"urls": [
-				"bzz-raw://9d7c04d2d97fb897eca768acb3e0cbae0e619a84be372b21b8f1d9926f18cd32",
-				"dweb:/ipfs/QmcV4bMPAaXCm2ovVRU4a38GY77eVwotpqywcyYwLaw4sx"
+				"bzz-raw://f54ccac1c9daa89ffa6b5f06dd4e1e041584489e25aab588eded33a7fd8b0d4f",
+				"dweb:/ipfs/QmR8zYMrBWxihA5JRitbff9ejoyapNqvTUR7gqgaXHfFPU"
 			]
 		}
 	},
