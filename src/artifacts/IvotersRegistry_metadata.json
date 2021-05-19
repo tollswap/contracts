@@ -1,0 +1,108 @@
+{
+	"compiler": {
+		"version": "0.6.12+commit.27d51765"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "transactor",
+						"type": "address"
+					}
+				],
+				"name": "isEligible",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/UniswapV2Proxy.sol": "IVotersRegistry"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@uniswap/lib/contracts/libraries/TransferHelper.sol": {
+			"keccak256": "0x0920a26df9837a073c6b24c4e2542d9409c173748e0c6728a1ae39ce5c368899",
+			"urls": [
+				"bzz-raw://46c191c0fc6452e0c1c75725b4f577309cc20f081f85a1d10f706d0d9127297e",
+				"dweb:/ipfs/QmVuExKwURcyQVax2YDKZqYZELwjNQ4KRyLnKwvHD8rz44"
+			]
+		},
+		"@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol": {
+			"keccak256": "0xe5905c0989cf5a865ed9bb7b9252536ca011c5b744017a82a7d4443b9c00a891",
+			"urls": [
+				"bzz-raw://5d2a90a0a796491507462a3da18c3f8819721d571572d765a2207c35bf0a0389",
+				"dweb:/ipfs/Qmf9ACYiT3qzjgsYuhm866FBdiBpRMXAPpQhSFbgqcyhHt"
+			]
+		},
+		"@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol": {
+			"keccak256": "0x7c9bc70e5996c763e02ff38905282bc24fb242b0ef2519a003b36824fc524a4b",
+			"urls": [
+				"bzz-raw://85d5ad2dd23ee127f40907a12865a1e8cb5828814f6f2480285e1827dd72dedf",
+				"dweb:/ipfs/QmayKQWJgWmr46DqWseADyUanmqxh662hPNdAkdHRjiQQH"
+			]
+		},
+		"@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router01.sol": {
+			"keccak256": "0x8a3c5c449d4b7cd76513ed6995f4b86e4a86f222c770f8442f5fc128ce29b4d2",
+			"urls": [
+				"bzz-raw://1df63ca373dafae3bd0ee7fe70f890a1dc7c45ed869c01de68413e0e97ff9deb",
+				"dweb:/ipfs/QmefJgEYGUL8KX7kQKYTrDweF8GB7yjy3nw5Bmqzryg7PG"
+			]
+		},
+		"@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol": {
+			"keccak256": "0x744e30c133bd0f7ca9e7163433cf6d72f45c6bb1508c2c9c02f1a6db796ae59d",
+			"urls": [
+				"bzz-raw://9bf2f4454ad63d4cff03a0630e787d9e8a9deed80aec89682cd8ad6379d9ef8c",
+				"dweb:/ipfs/Qme51hQNR2wpax7ooUadhtqLtXm8ffeVVYyubLkTT4wMCG"
+			]
+		},
+		"libs/SafeMath.sol": {
+			"keccak256": "0x186349419a02f096ad33a3a314500216b1d683dfff84bb58eb34a9c44adb2082",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6a46c1daab5cd0e5bc4276769c07fe3674f2427866535e3139db6bcce62690e9",
+				"dweb:/ipfs/QmevHusaMw5EqrmuVMpcgpif3TDatN9XUVdueYuPyVNsap"
+			]
+		},
+		"src/UniswapV2Proxy.sol": {
+			"keccak256": "0xc1915e2bf08f3620255b882b95a2c23eb89afc89005083e6788aecadb969c771",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://70841f3c12475a3a922895049b428ce959027209355d32369b84770cb4d023e6",
+				"dweb:/ipfs/QmafCVc3849QycMx62YnEX2AhHBqhUfNdEbYnmrTL4v1p7"
+			]
+		}
+	},
+	"version": 1
+}

@@ -6,143 +6,114 @@
 	"output": {
 		"abi": [
 			{
-				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": true,
 						"internalType": "address",
-						"name": "owner",
+						"name": "_TOLL",
 						"type": "address"
 					},
 					{
-						"indexed": true,
 						"internalType": "address",
-						"name": "spender",
+						"name": "_VotersRegistry",
 						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
 					}
 				],
-				"name": "Approval",
-				"type": "event"
+				"stateMutability": "nonpayable",
+				"type": "constructor"
 			},
 			{
 				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": true,
+						"indexed": false,
 						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "to",
+						"name": "",
 						"type": "address"
 					},
 					{
 						"indexed": false,
 						"internalType": "uint256",
-						"name": "value",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "Transfer",
+				"name": "Received",
 				"type": "event"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "spender",
-						"type": "address"
-					}
-				],
-				"name": "allowance",
+				"inputs": [],
+				"name": "TOLL_ADDRESS",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "address",
 						"name": "",
-						"type": "uint256"
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "spender",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "approve",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					}
-				],
-				"name": "balanceOf",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "mint",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "totalSupply",
+				"name": "UNISWAP_ROUTER_ADDRESS",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "VotersRegistry",
+				"outputs": [
+					{
+						"internalType": "contract IVotersRegistry",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "approvals",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "gassend",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "gasstart",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -156,55 +127,40 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "amountOutMin",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address[]",
+						"name": "path",
+						"type": "address[]"
+					},
+					{
 						"internalType": "address",
-						"name": "recipient",
+						"name": "to",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "deadline",
 						"type": "uint256"
 					}
 				],
-				"name": "transfer",
+				"name": "swapExactETHForTokens",
 				"outputs": [
 					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
+						"internalType": "uint256[]",
+						"name": "amounts",
+						"type": "uint256[]"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "sender",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "recipient",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "transferFrom",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -220,7 +176,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"src/UniswapV2Proxy.sol": "IERC20"
+			"src/UniswapVXProxy.sol": "UniswapVXProxy"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -277,12 +233,12 @@
 				"dweb:/ipfs/QmevHusaMw5EqrmuVMpcgpif3TDatN9XUVdueYuPyVNsap"
 			]
 		},
-		"src/UniswapV2Proxy.sol": {
-			"keccak256": "0xc1915e2bf08f3620255b882b95a2c23eb89afc89005083e6788aecadb969c771",
+		"src/UniswapVXProxy.sol": {
+			"keccak256": "0xa8c53eb78becd7cb06c518ef147578d0734a4c8a606fd0f9a0e42aa8114f4d0b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://70841f3c12475a3a922895049b428ce959027209355d32369b84770cb4d023e6",
-				"dweb:/ipfs/QmafCVc3849QycMx62YnEX2AhHBqhUfNdEbYnmrTL4v1p7"
+				"bzz-raw://ab776c31c567253f461cb28d3486f8deb3ec0665b6cbf2099b45cef58b538cbb",
+				"dweb:/ipfs/QmZeHYZJHMKYqdTxQ4jNsVMgcgxi3AMajGWCmQsP4FJPU5"
 			]
 		}
 	},

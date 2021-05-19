@@ -6,22 +6,20 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
-				"inputs": [],
-				"name": "MINIMUM_TOLL",
-				"outputs": [
+				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
+						"internalType": "address",
+						"name": "_TOLL",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_VotersRegistry",
+						"type": "address"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
+				"stateMutability": "nonpayable",
+				"type": "constructor"
 			},
 			{
 				"inputs": [],
@@ -42,6 +40,19 @@
 				"outputs": [
 					{
 						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "VotersRegistry",
+				"outputs": [
+					{
+						"internalType": "contract IVotersRegistry",
 						"name": "",
 						"type": "address"
 					}
@@ -166,6 +177,106 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "amountOutMin",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address[]",
+						"name": "path",
+						"type": "address[]"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					}
+				],
+				"name": "swapExactETHForTokensSupportingFeeOnTransferTokens",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountOutMin",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address[]",
+						"name": "path",
+						"type": "address[]"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					}
+				],
+				"name": "swapExactTokensForETH",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "amounts",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountOutMin",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address[]",
+						"name": "path",
+						"type": "address[]"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					}
+				],
+				"name": "swapExactTokensForETHSupportingFeeOnTransferTokens",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "amountIn",
 						"type": "uint256"
 					},
@@ -198,6 +309,39 @@
 						"type": "uint256[]"
 					}
 				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountOutMin",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address[]",
+						"name": "path",
+						"type": "address[]"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					}
+				],
+				"name": "swapExactTokensForTokensSupportingFeeOnTransferTokens",
+				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -278,6 +422,10 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -293,7 +441,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"tollfree/src/UniswapV2Proxy.sol": "UniswapV2Proxy"
+			"src/UniswapV2Proxy.sol": "UniswapV2Proxy"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -308,11 +456,10 @@
 	},
 	"sources": {
 		"@uniswap/lib/contracts/libraries/TransferHelper.sol": {
-			"keccak256": "0xaff99b54915f57e2a4e71b8d15afd4ee425410e5a6f45c07517ae1beb806f8bd",
-			"license": "GPL-3.0-or-later",
+			"keccak256": "0x0920a26df9837a073c6b24c4e2542d9409c173748e0c6728a1ae39ce5c368899",
 			"urls": [
-				"bzz-raw://15432ec031f4cfa6709921289e198b030a0c5eac75b5a3e0eb64827a2b3b5595",
-				"dweb:/ipfs/QmZvR1KuuDvuzXFiADCngTKyMCTy31uhq9U6CazP59B55j"
+				"bzz-raw://46c191c0fc6452e0c1c75725b4f577309cc20f081f85a1d10f706d0d9127297e",
+				"dweb:/ipfs/QmVuExKwURcyQVax2YDKZqYZELwjNQ4KRyLnKwvHD8rz44"
 			]
 		},
 		"@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol": {
@@ -343,7 +490,7 @@
 				"dweb:/ipfs/Qme51hQNR2wpax7ooUadhtqLtXm8ffeVVYyubLkTT4wMCG"
 			]
 		},
-		"tollfree/libs/SafeMath.sol": {
+		"libs/SafeMath.sol": {
 			"keccak256": "0x186349419a02f096ad33a3a314500216b1d683dfff84bb58eb34a9c44adb2082",
 			"license": "MIT",
 			"urls": [
@@ -351,12 +498,12 @@
 				"dweb:/ipfs/QmevHusaMw5EqrmuVMpcgpif3TDatN9XUVdueYuPyVNsap"
 			]
 		},
-		"tollfree/src/UniswapV2Proxy.sol": {
-			"keccak256": "0xcc3ff054a7c0982f2cf783d1b5b2372e3c891fa378d9ecb96e1a60a264f71800",
+		"src/UniswapV2Proxy.sol": {
+			"keccak256": "0xc1915e2bf08f3620255b882b95a2c23eb89afc89005083e6788aecadb969c771",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5aacb0d0e7b817e884128c5ecbcf08b7be7a7ddbcd807632f5ea1bb98e1b53e5",
-				"dweb:/ipfs/QmZMGLBiuUsZiSoe2WpfFeDxmAZ1FirMRCnESHvKzKMXgY"
+				"bzz-raw://70841f3c12475a3a922895049b428ce959027209355d32369b84770cb4d023e6",
+				"dweb:/ipfs/QmafCVc3849QycMx62YnEX2AhHBqhUfNdEbYnmrTL4v1p7"
 			]
 		}
 	},

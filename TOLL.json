@@ -1,0 +1,60 @@
+{
+    "name": "Toll Tokens List",
+    "logoURI": "https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
+    "keywords": [
+        "audited",
+        "verified",
+        "free Swaps",
+        "free tranfers",
+        "toll"
+    ],
+    "tags": {
+        "stablecoin": {
+            "name": "Stablecoin",
+            "description": "Tokens that are fixed to an external asset"
+        },
+        "tollfreewap": {
+            "name": "TollFree Swap",
+            "description": "Tokens that refund your Ether  Gas fees"
+        }
+        
+        
+    },
+    "tokens": [
+        {
+          "name": "TollFree Swap",
+          "decimals": 18,
+          "symbol": "TOLL",
+          "address": "0x609c711783295209d9f33F535A7cA55B8FF87Af2",
+          "logoURI": "https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
+          "chainId": 1,
+          "tags": ["tollfreewap"]
+        },
+        {
+            "name": "TollFree Swap",
+            "decimals": 18,
+            "symbol": "TOLL",
+            "address": "0x609c711783295209d9f33F535A7cA55B8FF87Af2",
+            "chainId": 3,
+            "logoURI":"https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
+            "tags": [
+                "tollfreewap"
+            ]
+        },
+        {
+          "name": "TollFree Swap",
+          "decimals": 18,
+          "symbol": "TOLL",
+          "address": "0xe46E2A965B7fb3507480FC9fd95440650327b364",
+          "logoURI": "https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
+          "chainId": 5,
+          "tags": ["tollfreewap"]
+        }
+    ],
+    "timestamp": "2020-12-11T17:08:18.941Z",
+    "version": {
+        "major": 1,
+        "minor": 3,
+        "patch": 0
+    }
+}
