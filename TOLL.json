@@ -17,8 +17,6 @@
             "name": "TollFree Swap",
             "description": "Tokens that refund your Ether  Gas fees"
         }
-        
-        
     },
     "tokens": [
         {
@@ -31,9 +29,9 @@
           "tags": ["tollfreewap"]
         },
         {
-            "name": "TollFree Swap",
+            "name": "TollFree Swap Ropsten",
             "decimals": 18,
-            "symbol": "TOLL",
+            "symbol": "TOLLR",
             "address": "0x609c711783295209d9f33F535A7cA55B8FF87Af2",
             "chainId": 3,
             "logoURI":"https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
@@ -42,9 +40,9 @@
             ]
         },
         {
-          "name": "TollFree Swap",
+          "name": "TollFree Swap Goeli",
           "decimals": 18,
-          "symbol": "TOLL",
+          "symbol": "TOLLG",
           "address": "0xe46E2A965B7fb3507480FC9fd95440650327b364",
           "logoURI": "https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
           "chainId": 5,
