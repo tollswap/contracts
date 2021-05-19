@@ -6,7 +6,7 @@
         "verified",
         "free Swaps",
         "free tranfers",
-        "toll"
+        "tollfs"
     ],
     "tags": {
         "stablecoin": {
@@ -26,7 +26,7 @@
           "address": "0x609c711783295209d9f33F535A7cA55B8FF87Af2",
           "logoURI": "https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
           "chainId": 1,
-          "tags": ["tollfreewap"]
+          "tags": ["tollfs"]
         },
         {
             "name": "TollFree Swap Ropsten",
@@ -36,7 +36,7 @@
             "chainId": 3,
             "logoURI":"https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
             "tags": [
-                "tollfreewap"
+                "tollfs"
             ]
         },
         {
@@ -46,7 +46,7 @@
           "address": "0xe46E2A965B7fb3507480FC9fd95440650327b364",
           "logoURI": "https://raw.githubusercontent.com/tollswap/contracts/main/toll.png",
           "chainId": 5,
-          "tags": ["tollfreewap"]
+          "tags": ["tollfs"]
         }
     ],
     "timestamp": "2020-12-11T17:08:18.941Z",
