@@ -13,7 +13,7 @@
             "name": "Stablecoin",
             "description": "Tokens that are fixed to an external asset"
         },
-        "tollfreewap": {
+        "tollfs": {
             "name": "TollFree Swap",
             "description": "Tokens that refund your Ether  Gas fees"
         }
