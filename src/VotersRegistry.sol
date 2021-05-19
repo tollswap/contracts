@@ -201,7 +201,7 @@ library SafeMath {
 contract Context {
     // Empty internal constructor, to prevent people from mistakenly deploying
     // an instance of this contract, which should be used via inheritance.
-    constructor () internal { }
+    constructor () internal {}
     // solhint-disable-previous-line no-empty-blocks
 
     function _msgSender() internal view returns (address payable) {
@@ -426,7 +426,6 @@ library Address {
      */
     function sendValue(address payable recipient, uint256 amount) internal {
         require(address(this).balance >= amount, "Address: insufficient balance");
-
         // solhint-disable-next-line avoid-call-value
         (bool success, ) = recipient.call.value(amount)("");
         require(success, "Address: unable to send value, recipient may have reverted");
@@ -511,50 +510,28 @@ library SafeERC20 {
 
 // Toll Votes
 contract VoterRegistry {   // this contract allows long time users of toll to vote on items
-    using SafeMath for uint256;
     using SafeERC20 for IERC20;
-    IERC20 public toll = IERC20(0x95C4B6C7CfF608c0CA048df8b81a484aA377172B);
-    uint256 private _totalSupply;
-    uint256 private _totalBurned;
-    uint256 public lockTime;
+    IERC20 public toll;
+    uint96 private _totalSupply;
+    uint96 private _totalBurned;
+    uint96 public lockTime;
     string public constant name = "Toll Free Governance";
-    mapping(address => uint256) private _balances;
-    mapping(address => uint256) private _votes;
-    mapping(address => uint256) private _burns;
-    mapping(address => uint256) private locks; // timelocks for exits
-    event Burned(address indexed voter, uint256 votes);
-    event Exited(address indexed voter, uint256 votes);
-    event Locked(address indexed voter, uint256 votes);
+    mapping(address => uint96) private _balances;
+    mapping(address => uint96) private _votes;
+    mapping(address => uint96) private _burns;
+    mapping(address => uint96) private locks; // timelocks for exits
+    event Burned(address indexed voter, uint96 votes);
+    event Exited(address indexed voter, uint96 votes);
+    event Locked(address indexed voter, uint96 votes);
     /* Modifications for proposals */
     mapping(address => uint) public voteLock; // period that your sake it locked to keep it for voting
-    struct Proposal {
-        uint id;
-        address proposer;
-        mapping(address => uint) forVotes;
-        mapping(address => uint) againstVotes;
-        uint totalForVotes;
-        uint totalAgainstVotes;
-        uint start; // block start;
-        uint end; // start + period
-    }
-    
-    mapping (uint => Proposal) public proposals;
-    uint public proposalCount;
-    uint public period = 17280; // voting period in blocks ~ 17280 3 days for 15s/block
-    uint public lock = 17280; // vote lock in blocks ~ 17280 3 days for 15s/block
-    uint public minimum = 1e18; // 1 ether
-    bool public config = true;
-    address public governance;
-
     /// @notice A record of each accounts delegate
     mapping (address => address) public delegates;
-
     /// @notice A checkpoint for marking number of votes from a given block
     struct Checkpoint {
         uint32 fromBlock;
         uint96 votes;
     }
-
     /// @notice A record of votes checkpoints for each account, by index
     mapping (address => mapping (uint32 => Checkpoint)) public checkpoints;
 
@@ -562,10 +539,10 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
     mapping (address => uint32) public numCheckpoints;
 
     /// @notice The EIP-712 typehash for the contract's domain
-    bytes32 public constant DOMAIN_TYPEHASH = keccak256("EIP712Domain(string name,uint256 chainId,address verifyingContract)");
+    bytes32 public constant DOMAIN_TYPEHASH = keccak256("EIP712Domain(string name,uint96 chainId,address verifyingContract)");
 
     /// @notice The EIP-712 typehash for the delegation struct used by the contract
-    bytes32 public constant DELEGATION_TYPEHASH = keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
+    bytes32 public constant DELEGATION_TYPEHASH = keccak256("Delegation(address delegatee,uint96 nonce,uint96 expiry)");
 
 
     /// @notice A record of states for signing / validating signatures
@@ -576,65 +553,88 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
 
     /// @notice An event thats emitted when a delegate account's vote balance changes
     event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);
-     /**
+   /**
+     * @notice Constructor
+     * @param address The address of TOLL contract
+     */
+    constructor( address _toll) public {
+        toll = IERC20(_toll);
+    }
+
+    /**
      * @notice check if a user is eligible to earn Fees refunds
      * @param transactor The address performing the transaction
      */
-    function  isEligible(address transactor) public view returns(bool) {
-       return _votes[transactor] > 1 ether || toll.balanceOf(transactor) > 1 ether;
-    }
-     
 
-    function totalSupply() public view returns (uint256) {
+    function  isEligible(address transactor) public view returns(bool) {
+       return _votes[transactor] > 1 ether || toll.balanceOf(transactor) > minEther();
+    }
+
+    function minEther() public view{
+        uint96 tollSupply = toll.totalSupply(); //gradually up minimum
+        if(tollSupply >= 100000 ether && tollSupply <= 200000 ether)return 100000000000000000;
+        if(tollSupply >= 200000 ether && tollSupply <= 300000 ether)return 200000000000000000;
+        if(tollSupply >= 300000 ether && tollSupply <= 400000 ether)return 300000000000000000;
+        if(tollSupply >= 400000 ether && tollSupply <= 500000 ether)return 400000000000000000;
+        if(tollSupply >= 500000 ether && tollSupply <= 600000 ether)return 500000000000000000;
+        if(tollSupply >= 600000 ether && tollSupply <= 700000 ether)return 600000000000000000;
+        if(tollSupply >= 700000 ether && tollSupply <= 800000 ether)return 700000000000000000;
+        if(tollSupply >= 800000 ether && tollSupply <= 900000 ether)return 800000000000000000;
+        if(tollSupply >= 900000 ether && tollSupply <= 1000000 ether)return 900000000000000000;
+        return 1 ether;
+    }
+
+    function totalSupply() public view returns (uint96) {
         return _totalSupply;
     }
 
-    function totalBurned() public view returns (uint256) {
+    function totalBurned() public view returns (uint96) {
         return _totalBurned;
     }
 
-    function lockOf(address account) public view returns (uint256) {
+    function lockOf(address account) public view returns (uint96) {
         return _balances[account];
     }
 
-    function voteOf(address account) public view returns (uint256) {
+    function voteOf(address account) public view returns (uint96) {
         return _votes[account];
     }
 
-    function burnOf(address account) public view returns (uint256) {
+    function burnOf(address account) public view returns (uint96) {
         return _burns[account];
     }
 
-    function lockVotes(uint256 votes) public { // temp voter
-        _totalSupply = _totalSupply.add(votes * 1 ether);
-        _balances[msg.sender] = _balances[msg.sender].add(votes * 1 ether);
-        _votes[msg.sender] = _votes[msg.sender].add(votes * 1 ether);
-        _moveDelegates(address(0), delegates[msg.sender], safe96((votes * 1 ether),"Votes::lockVotes:  votes exceed 96 bits"));
-        locks[msg.sender] = now;
+    function lockVotes(uint96 votes) public { // temp voter
+        _totalSupply = add96(_totalSupply, votes, "Votes::lockVotes:  votes exceed 96 bits");
+        _balances[msg.sender] = add96(_balances[msg.sender], votes, "Votes::lockVotes:  votes exceed 96 bits");
+        _votes[msg.sender] = add96(_votes[msg.sender], votes, "Votes::lockVotes:  votes exceed 96 bits");
+        if(delegates[msg.sender] == address(0)) delegates[msg.sender] = msg.sender;
+        _moveDelegates(address(0), delegates[msg.sender], votes);
         emit Locked(msg.sender, votes);
-        toll.safeTransferFrom(msg.sender, address(this), votes * 1 ether);
+        toll.safeTransferFrom(msg.sender, address(this), votes);
     }
 
 
-    function burn(uint256 votes) public { // permanent voter
-        _totalBurned = _totalBurned.add( votes * 3 ether);
-        _votes[msg.sender] = _votes[msg.sender].add(votes * 3 ether);
-        _burns[msg.sender] = _balances[msg.sender].add(votes * 1 ether);
-        _moveDelegates(address(0), delegates[msg.sender], safe96((votes * 3 ether),"Votes::burn:  votes exceed 96 bits"));
-        emit Burned(msg.sender, votes * 3);
-        toll.safeTransferFrom(msg.sender, address(this), votes *  1 ether);
+    function burn(uint96 votes) public { // permanent voter
+        _totalBurned = add96(_totalBurned, votes, "Votes::lockVotes:  votes exceed 96 bits");
+        _votes[msg.sender] = add96(_votes[msg.sender], (votes * 3 ether), "Votes::lockVotes:  votes exceed 96 bits");
+        _burns[msg.sender] = add96(_balances[msg.sender], (votes * 3 ether), "Votes::lockVotes:  votes exceed 96 bits");
+        if(delegates[msg.sender] == address(0)) delegates[msg.sender] = msg.sender;
+        _moveDelegates(address(0), delegates[msg.sender], (votes * 3 ether));
+        emit Burned(msg.sender, votes);
+        toll.safeTransferFrom(msg.sender, address(this), votes);
     }
 
 
-    function exit(uint256 votes) public { 
-        require (_balances[msg.sender] > votes  * 1 ether, "LOW BALANCE");
-        _totalSupply = _totalSupply.sub(votes * 1 ether);
-        _balances[msg.sender] = _balances[msg.sender].sub( votes * 1 ether);
-        _votes[msg.sender] = _votes[msg.sender].sub( votes * 1 ether);
+    function exit(uint96 votes) public {
+        require (_balances[msg.sender] > votes, "LOW BALANCE");
+        _totalSupply = sub96(_totalSupply, votes, "Votes::exit:  votes exceed 96 bits");
+        _balances[msg.sender] = sub96(_balances[msg.sender], votes, "Votes::exit:  votes exceed 96 bits");
+        _votes[msg.sender] = sub96(_votes[msg.sender], votes, "Votes::exit:  votes exceed 96 bits");
         // move delegates address to zero
-        _moveDelegates(address(0), delegates[msg.sender], safe96((votes * 1 ether),"Votes::exit:  votes exceed 96 bits"));
+        _moveDelegates(delegates[msg.sender], address(0),  votes);
         emit Exited(msg.sender, votes);
-        toll.safeTransfer(msg.sender, votes * 1 ether);
+        toll.safeTransfer(msg.sender, votes);
     }
 
     /**
@@ -714,7 +714,7 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
 
     function _delegate(address delegator, address delegatee) internal {
         address currentDelegate = delegates[delegator];
-        uint96 delegatorBalance =  safe96((_votes[delegator] * 1 ether),"Votes::exit:  votes exceed 96 bits");
+        uint96 delegatorBalance = _votes[delegator];
         delegates[delegator] = delegatee;
         emit DelegateChanged(delegator, currentDelegate, delegatee);
         _moveDelegates(currentDelegate, delegatee, delegatorBalance);
@@ -771,7 +771,7 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
     }
 
     function getChainId() internal pure returns (uint) {
-        uint256 chainId;
+        uint96 chainId;
         assembly { chainId := chainid() }
         return chainId;
     }
