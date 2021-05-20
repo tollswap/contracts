@@ -33,10 +33,10 @@
 	},
 	"sources": {
 		"src/VotersRegistry.sol": {
-			"keccak256": "0x941942f816fecf41bba3c101352aa1fcad6de4d1eda5e7adb3bbfee74794833d",
+			"keccak256": "0x1948bb9c39eb5f2d6abeb85da5167f6bcbd93c3d899d2ba87eb0a3bdae3b631a",
 			"urls": [
-				"bzz-raw://52c3e565560f213e447651029103e5305ca69c277272dc39247387f769aff8ce",
-				"dweb:/ipfs/QmaPVK1Skfe4n5kBJwLyx96v2CNHXtUcSmziqAD4tokjc5"
+				"bzz-raw://e65d4ab2bd179cbb8430a728932df0c3ba22124c6befdcf2609f79db98be900a",
+				"dweb:/ipfs/QmU43WwyEduQLyeTcBmHMiqaJN8JeXRy6GUQThUWe3GoPP"
 			]
 		}
 	},

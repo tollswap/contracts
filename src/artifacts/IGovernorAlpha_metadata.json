@@ -9,19 +9,18 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "transactor",
+						"name": "to",
 						"type": "address"
-					}
-				],
-				"name": "isEligible",
-				"outputs": [
+					},
 					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -38,7 +37,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"src/UniswapV2Proxy.sol": "IVotersRegistry"
+			"src/UniswapV2Proxy.sol": "IGovernorAlpha"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},

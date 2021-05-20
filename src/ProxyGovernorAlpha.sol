@@ -1,8 +1,10 @@
 pragma solidity ^0.5.16;
 pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./AddrArrayLib.sol";
 contract ProxyGovernorAlpha {
      using SafeMath for uint256;
+     using AddrArrayLib for AddrArrayLib.Addresses;
     /// @notice The name of this contract
     string public constant name = "Tollfree Governor Alpha";
     /// @notice The address of the Tollfree Voters Registry
@@ -13,38 +15,18 @@ contract ProxyGovernorAlpha {
     uint public proposalCount;
 
     struct Proposal {
-        /// @notice Unique id for looking up a proposal
         uint id;
-        /// @notice Creator of the proposal
         address proposer;
-        /// @notice The timestamp that the proposal will be available for execution, set once the vote succeeds
         uint eta;
-
-        /// @notice Address of the proxy
         address proxy;
-
-        /// @notice The block at which voting begins: holders must delegate their votes prior to this block
         uint startBlock;
-
-        /// @notice The block at which voting ends: votes must be cast prior to this block
         uint endBlock;
-
-        /// @notice Current number of votes in favor of this proposal
         uint forVotes;
-
-        /// @notice Current number of votes in opposition to this proposal
         uint againstVotes;
-
-        /// @notice Flag marking whether the proposal has been canceled
+        uint revokeVotes;
         bool canceled;
-
-        /// @notice Flag marking whether the proposal has been executed
         bool executed;
-
-        /// @notice Flag marking whether the proposal has been queued
         bool queued;
-
-        /// @notice Receipts of ballots for the entire set of voters
         mapping (address => Receipt) receipts;
     }
 
@@ -52,12 +34,14 @@ contract ProxyGovernorAlpha {
     struct Receipt {
         /// @notice Whether or not a vote has been cast
         bool hasVoted;
-
+        /// @notice Whether or not a vote has been cast
+        bool hasRevoked;
         /// @notice Whether or not the voter supports the proposal
         bool support;
-
-        /// @notice The number of votes the voter had, which were cast
+       /// @notice The number of votes the voter had, which were cast
         uint96 votes;
+         /// @notice The number of votes the voter had, which are revoked
+        uint96 revokedVotes;
     }
 
     /// @notice Possible states that a proposal may be in
@@ -69,13 +53,17 @@ contract ProxyGovernorAlpha {
         Succeeded,
         Queued,
         Expired,
-        Executed
+        Executed,
+        Revoked,
+        Removed
     }
-
+    
     /// @notice The official record of all proposals ever proposed
     mapping (uint => Proposal) public proposals;
     /// @notice The latest proposal for each proposer
     mapping (address => uint) public latestProposalIds;
+    mapping (address => uint) public totalMintOf;
+    mapping (uint => bool) public removed;
     /// @notice The EIP-712 typehash for the contract's domain
     bytes32 public constant DOMAIN_TYPEHASH = keccak256("EIP712Domain(string name,uint256 chainId,address verifyingContract)");
     /// @notice The EIP-712 typehash for the ballot struct used by the contract
@@ -90,10 +78,17 @@ contract ProxyGovernorAlpha {
     event ProposalQueued(uint id, uint eta);
     /// @notice An event emitted when a proposal has been executed in the Timelock
     event ProposalExecuted(uint id);
-    constructor( address voterRegistry_ , address toll_) public {
+    
+    /// @notice The latest proposal for each proposer
+    AddrArrayLib.Addresses internal minters;
+    constructor( address voterRegistry_, address toll_, address tranferProxy, address univ2Proxy) public {
         voterRegistry = voterRegistryInterface(voterRegistry_);
         toll = tollInterface(toll_);
+        addMinter(tranferProxy);
+        addMinter(univ2Proxy);
     }
+    
+   
     
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
     function quorumVotes() public view returns (uint) {
@@ -107,7 +102,7 @@ contract ProxyGovernorAlpha {
 
  
     /// @notice The delay before voting on a proposal may take place, once proposed
-    function votingDelay() public pure returns (uint) { return 1; } // 1 block
+    function votingDelay() public pure returns (uint) { return 5760; } // ~ 1 day in 15s block
 
     /// @notice The duration of voting on a proposal, in blocks
     function votingPeriod() public pure returns (uint) { return 40_320; } // ~7 days in blocks (assuming 15s blocks)
@@ -126,15 +121,16 @@ contract ProxyGovernorAlpha {
         Proposal memory newProposal = Proposal({
             id: proposalCount,
             proposer: msg.sender,
-            eta: 0,
             proxy: proxy,
+            eta: 0,
             startBlock: startBlock,
             endBlock: endBlock,
             forVotes: 0,
             againstVotes: 0,
             canceled: false,
             executed: false,
-            queued:false
+            queued:false,
+            revokeVotes: 0
         });
         proposals[newProposal.id] = newProposal;
         latestProposalIds[newProposal.proposer] = newProposal.id;
@@ -152,14 +148,15 @@ contract ProxyGovernorAlpha {
         emit ProposalQueued(proposalId, eta);
     }
 
-    function execute(uint proposalId) public payable {
+    function execute(uint proposalId) public {
         require(state(proposalId) == ProposalState.Queued, "GovernorAlpha::execute: proposal can only be executed if it is queued");
         Proposal storage proposal = proposals[proposalId];
         proposal.executed = true;
-        toll.addMinter(proposal.proxy);
+        addMinter(proposal.proxy);
         emit ProposalExecuted(proposalId);
     }
-
+    
+ 
     function cancel(uint proposalId) public {
         ProposalState state = state(proposalId);
         require(state != ProposalState.Executed, "GovernorAlpha::cancel: cannot cancel executed proposal");
@@ -176,7 +173,9 @@ contract ProxyGovernorAlpha {
     function state(uint proposalId) public view returns (ProposalState) {
         require(proposalCount >= proposalId && proposalId > 0, "GovernorAlpha::state: invalid proposal id");
         Proposal storage proposal = proposals[proposalId];
-        if (proposal.canceled) {
+        if (removed[proposalId]) {
+            return ProposalState.Removed;
+        }else if (proposal.canceled) {
             return ProposalState.Canceled;
         } else if (block.number <= proposal.startBlock) {
             return ProposalState.Pending;
@@ -187,6 +186,9 @@ contract ProxyGovernorAlpha {
         } else if (proposal.eta == 0) {
             return ProposalState.Succeeded;
         } else if (proposal.executed) {
+            if (proposal.revokeVotes >=  proposal.forVotes){
+                return ProposalState.Revoked;
+            }
             return ProposalState.Executed;
         } else if (block.timestamp >= add256(proposal.eta, 14 days)) {
             return ProposalState.Expired;
@@ -198,6 +200,7 @@ contract ProxyGovernorAlpha {
     function castVote(uint proposalId, bool support) public {
         return _castVote(msg.sender, proposalId, support);
     }
+
 
     function castVoteBySig(uint proposalId, bool support, uint8 v, bytes32 r, bytes32 s) public {
         bytes32 domainSeparator = keccak256(abi.encode(DOMAIN_TYPEHASH, keccak256(bytes(name)), getChainId(), address(this)));
@@ -223,6 +226,39 @@ contract ProxyGovernorAlpha {
         receipt.support = support;
         receipt.votes = votes;
         emit VoteCast(voter, proposalId, support, votes);
+    }
+    
+    
+    function revokeVote(uint proposalId) public {
+        return _revokeVote(msg.sender, proposalId);
+    }
+
+    function revokeVoteBySig(uint proposalId, uint8 v, bytes32 r, bytes32 s) public {
+        bytes32 domainSeparator = keccak256(abi.encode(DOMAIN_TYPEHASH, keccak256(bytes(name)), getChainId(), address(this)));
+        bytes32 structHash = keccak256(abi.encode(BALLOT_TYPEHASH, proposalId));
+        bytes32 digest = keccak256(abi.encodePacked("\x19\x01", domainSeparator, structHash));
+        address signatory = ecrecover(digest, v, r, s);
+        require(signatory != address(0), "GovernorAlpha::castVoteBySig: invalid signature");
+        return _revokeVote(signatory, proposalId);
+    }
+
+    function _revokeVote(address voter, uint proposalId) internal {
+        require(state(proposalId) != ProposalState.Active, "GovernorAlpha::_castVote: voting is Active");
+        Proposal storage proposal = proposals[proposalId];
+        Receipt storage receipt = proposal.receipts[voter];
+        require(receipt.hasRevoked == false, "GovernorAlpha::_revokeVote: voter already revoked");
+        uint96 votes = voterRegistry.getPriorVotes(voter, proposal.startBlock);
+        add256(proposal.revokeVotes, votes);
+        receipt.hasRevoked = true;
+        receipt.revokedVotes = votes;
+    }
+    
+    function remove(uint proposalId) public {
+        require(state(proposalId) == ProposalState.Revoked, "GovernorAlpha::revoke: proposal can only be removed if it is revoked");
+        Proposal storage proposal = proposals[proposalId];
+        removed[proposalId] = true;
+        removeMinter(proposal.proxy);
+        emit ProposalExecuted(proposalId);
     }
 
     function add256(uint256 a, uint256 b) internal pure returns (uint) {
@@ -254,27 +290,47 @@ contract ProxyGovernorAlpha {
         uint256 e = d.div(m);
         return e.mul(m);
     }
+    
+   function mintersCount()public view returns(uint count){
+        return minters.size();
+    }
+    
+   function addMinter(address minter) internal{
+        minters.pushAddress(minter);
+   }
+
+  function removeMinter(address minter) internal {
+        minters.removeAddress(minter);
+  }
+
+  function mint(address to, uint256 amount) public {
+        require(minters.exists(msg.sender), 'GovernorAlpha::mint: sender is not a minter');
+        require(voterRegistry.isEligible(to), 'GovernorAlpha::mint: Low Balance');
+        totalMintOf[msg.sender] = totalMintOf[msg.sender].add(amount);
+        toll.mint(to, amount);
+  }
+  
+  function getProxies() public view returns(address[] memory allMinters){
+      allMinters = minters.getAllAddresses();
+  }
+  
+  function isProxy(address minter) public view returns(bool){
+      return minters.exists(minter);
+  }
+  
+    
 }
 
 
-interface TimelockInterface {
-    function delay() external view returns (uint);
-    function GRACE_PERIOD() external view returns (uint);
-    function acceptAdmin() external;
-    function queuedTransactions(bytes32 hash) external view returns (bool);
-    function queueTransaction(address target, uint value, string calldata signature, bytes calldata data, uint eta) external returns (bytes32);
-    function cancelTransaction(address target, uint value, string calldata signature, bytes calldata data, uint eta) external;
-    function executeTransaction(address target, uint value, string calldata signature, bytes calldata data, uint eta) external payable returns (bytes memory);
-}
 
 
 interface voterRegistryInterface {
     function getPriorVotes(address account, uint blockNumber) external view returns (uint96);
-    
+    function isEligible(address transactor) external view returns(bool);
 }
 
 interface tollInterface {
     function totalSupply() external view returns (uint256);
-    function addMinter(address account) external;
+    function mint(address to, uint256 amount) external;
 }
 

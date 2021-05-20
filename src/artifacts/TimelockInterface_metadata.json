@@ -211,10 +211,10 @@
 			]
 		},
 		"src/ProxyGovernorAlpha.sol": {
-			"keccak256": "0x0a6f7481840583f400492e391f80ee7d0b84fd5d4675c500529b60e24bb9e18e",
+			"keccak256": "0x46b7a36db40fc939531f5bdc7e03d1b504e7a664321188bcd2043ca7df69e1d4",
 			"urls": [
-				"bzz-raw://484aed1af157aa056c65b0303bdf1ce0cf18345ebeea2cddca7ed6ac444c90a3",
-				"dweb:/ipfs/QmY4pJjavpgqsn6vBWXNyKvNnkKrKhYFSs1yHCY86p11GQ"
+				"bzz-raw://a850258cff6eb1d22e7f5706fbe9774d0792909d7e0860ceb4784173c44de882",
+				"dweb:/ipfs/QmQ7oWTGTUBQiDyxP5rbvNxe46Gx71nXJay2JneVSfAp3g"
 			]
 		}
 	},

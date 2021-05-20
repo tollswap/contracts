@@ -9,11 +9,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_TOLL",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
 						"name": "_VotersRegistry",
 						"type": "address"
 					}
@@ -23,7 +18,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "TOLL_ADDRESS",
+				"name": "Governor",
 				"outputs": [
 					{
 						"internalType": "address",
@@ -103,6 +98,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_GovernorAlpha",
+						"type": "address"
+					}
+				],
+				"name": "setGovernor",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -499,11 +507,11 @@
 			]
 		},
 		"src/UniswapV2Proxy.sol": {
-			"keccak256": "0xc1915e2bf08f3620255b882b95a2c23eb89afc89005083e6788aecadb969c771",
+			"keccak256": "0x3badb96d53524bd37ae5f9561bb7502e8bf9e92b7c270b6b4c48cb6566ed7dc4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://70841f3c12475a3a922895049b428ce959027209355d32369b84770cb4d023e6",
-				"dweb:/ipfs/QmafCVc3849QycMx62YnEX2AhHBqhUfNdEbYnmrTL4v1p7"
+				"bzz-raw://5431fcc1a36168aeb0415d3a54eeae158e1610cb8fd68884b2a33a0db94b52b3",
+				"dweb:/ipfs/QmXHMfd2V8gLMjLCKs89zzjg7J9kF6aMdBxHZiWXQpKjg1"
 			]
 		}
 	},

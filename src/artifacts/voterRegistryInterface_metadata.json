@@ -30,6 +30,27 @@
 				"payable": false,
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "transactor",
+						"type": "address"
+					}
+				],
+				"name": "isEligible",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -59,11 +80,18 @@
 				"dweb:/ipfs/QmbZaJyXdpsYGykVhHH9qpVGQg9DGCxE2QufbCUy3daTgq"
 			]
 		},
-		"src/ProxyGovernorAlpha.sol": {
-			"keccak256": "0x0a6f7481840583f400492e391f80ee7d0b84fd5d4675c500529b60e24bb9e18e",
+		"src/AddrArrayLib.sol": {
+			"keccak256": "0x7781407c46b6d4b23cdfa6ebb1921a739721f35d04774ed682991c372edc5147",
 			"urls": [
-				"bzz-raw://484aed1af157aa056c65b0303bdf1ce0cf18345ebeea2cddca7ed6ac444c90a3",
-				"dweb:/ipfs/QmY4pJjavpgqsn6vBWXNyKvNnkKrKhYFSs1yHCY86p11GQ"
+				"bzz-raw://3ff9d70d832ae09f18b2d72087460ffaf5f666e427710b0e4357c200ebcc4744",
+				"dweb:/ipfs/QmPrNPwh6VfsEHS3wtpcZLwHoDnDkjxgL8jgeKxGbxDbYV"
+			]
+		},
+		"src/ProxyGovernorAlpha.sol": {
+			"keccak256": "0x0965c6752205dd7e7cedfa411e9c08932363a2fafaa058f30968ca80cbe12492",
+			"urls": [
+				"bzz-raw://9f99a9ee74330564d62b23ef795856dd8481d8dad0362cb211ab41780101d5c8",
+				"dweb:/ipfs/QmQMCbVc1XB8sjRLph6ZEHwdUPXMVfG3BmTJQSXboGPsu1"
 			]
 		}
 	},

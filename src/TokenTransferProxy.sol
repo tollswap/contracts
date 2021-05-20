@@ -2,23 +2,42 @@
 pragma solidity ^0.5.0;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Mintable.sol";
+interface IGovernorAlpha {
+    function mint(address to, uint256 amount) external;
+}
+
+interface IVotersRegistry{
+    function  isEligible(address transactor) external view returns(bool);
+}
 
 contract TOLLTransferProxy {
     using SafeMath for uint256;
-    address public TOLL_ADDRESS = 0x609c711783295209d9f33F535A7cA55B8FF87Af2;
     uint256 MINIMUMFEE = 918; //+ 21000 ; //tx fee is not refunded
     uint256 MINTFEE = 14585;
     uint256 APPOVAL_FEES = 46000; // could be more or less
     mapping(address => uint256) public approvals;
-    ERC20Mintable private TOLL;
+    IGovernorAlpha private TOLL;
+    IVotersRegistry private votersRegistry;
+    address public GOVERNOR;
+    address public VOTERREGISTER;
      event refund (
         address indexed token,
         address indexed sender,
         uint256  refund
     );
-    constructor() public {
-        TOLL = ERC20Mintable(TOLL_ADDRESS);
+    
+    constructor( address _votersRegistry) public {
+        votersRegistry = IVotersRegistry(_votersRegistry);
+        VOTERREGISTER = _votersRegistry;
+        GOVERNOR = msg.sender;
     }
+    
+    function setGovernor(address _GovernorAlpha)public{
+        require(msg.sender == GOVERNOR, "Only Governor can Transfer Governance");
+        TOLL = IGovernorAlpha(_GovernorAlpha);
+        GOVERNOR = _GovernorAlpha;
+    }
+    
 
     function transferTokens(
         address to,
@@ -27,8 +46,7 @@ contract TOLLTransferProxy {
     ) external {
         uint256 fees = gasleft().add(MINIMUMFEE);
         uint256 approvalFees = getApprovalFees(token, msg.sender);
-        require(fees <= 1 ether, " Max refund is 1 Ether");
-        require(TOLL.balanceOf(msg.sender) >= 1 ether, "Low TOLL Balance.");
+        require(votersRegistry.isEligible(msg.sender), "Low TOLL Balance.");
         require(
             IERC20(token).transferFrom(msg.sender, to, tokens),
             "Transfer failed failed."

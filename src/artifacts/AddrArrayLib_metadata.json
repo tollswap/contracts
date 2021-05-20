@@ -6,7 +6,6 @@
 	"output": {
 		"abi": [],
 		"devdoc": {
-			"details": "Collection of functions related to the address type",
 			"methods": {}
 		},
 		"userdoc": {
@@ -15,7 +14,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"src/VotersRegistry.sol": "Address"
+			"src/AddrArrayLib.sol": "AddrArrayLib"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -26,11 +25,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"src/VotersRegistry.sol": {
-			"keccak256": "0x1948bb9c39eb5f2d6abeb85da5167f6bcbd93c3d899d2ba87eb0a3bdae3b631a",
+		"src/AddrArrayLib.sol": {
+			"keccak256": "0x7781407c46b6d4b23cdfa6ebb1921a739721f35d04774ed682991c372edc5147",
 			"urls": [
-				"bzz-raw://e65d4ab2bd179cbb8430a728932df0c3ba22124c6befdcf2609f79db98be900a",
-				"dweb:/ipfs/QmU43WwyEduQLyeTcBmHMiqaJN8JeXRy6GUQThUWe3GoPP"
+				"bzz-raw://3ff9d70d832ae09f18b2d72087460ffaf5f666e427710b0e4357c200ebcc4744",
+				"dweb:/ipfs/QmPrNPwh6VfsEHS3wtpcZLwHoDnDkjxgL8jgeKxGbxDbYV"
 			]
 		}
 	},

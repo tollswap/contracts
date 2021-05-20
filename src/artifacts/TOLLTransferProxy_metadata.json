@@ -6,7 +6,13 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_votersRegistry",
+						"type": "address"
+					}
+				],
 				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "constructor"
@@ -39,7 +45,22 @@
 			{
 				"constant": true,
 				"inputs": [],
-				"name": "TOLL_ADDRESS",
+				"name": "GOVERNOR",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "VOTERREGISTER",
 				"outputs": [
 					{
 						"internalType": "address",
@@ -70,6 +91,21 @@
 				],
 				"payable": false,
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_GovernorAlpha",
+						"type": "address"
+					}
+				],
+				"name": "setGovernor",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -168,10 +204,10 @@
 			]
 		},
 		"src/TokenTransferProxy.sol": {
-			"keccak256": "0xcf2e98084dd2541acc2033e48bc8e33ac6bbad59b22351ad35b6953a6eb45520",
+			"keccak256": "0x19394b4051e90bfad01d62e769f6e81c4f0037d0d2f5a68db78c658f2e16ea80",
 			"urls": [
-				"bzz-raw://9710963d25d3006e341330e9c79ca63066011aed2590a1eca485f0ae6a0b4175",
-				"dweb:/ipfs/QmczLMXivDpDxy32SNZEYKJfVdbPsXhhfNgbxiBxCXZiTr"
+				"bzz-raw://66e8b7f6575757bd07819125ad63845c8f5e6f49ab80d28691bb62b8aa79bfca",
+				"dweb:/ipfs/QmYMPZknvxTsYkWbtQZtaFGSALBtpETFo2LqTGQqatng5K"
 			]
 		}
 	},

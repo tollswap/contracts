@@ -5,9 +5,7 @@ import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 import "../libs/SafeMath.sol";
 import "@uniswap/lib/contracts/libraries/TransferHelper.sol";
-interface IVotersRegistry{
-    function  isEligible(address transactor) external view returns(bool);
-}
+
 
 interface IERC20 {
     function totalSupply() external view returns (uint256);
@@ -21,11 +19,18 @@ interface IERC20 {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
+interface IGovernorAlpha {
+    function mint(address to, uint256 amount) external;
+}
+
+interface IVotersRegistry{
+    function  isEligible(address transactor) external view returns(bool);
+}
+
 contract UniswapV2Proxy {
     using SafeMath for uint256;
-    //0xf0c742ec7c801a6afc99f9d41c92c06ebef2cf91
-    address public TOLL_ADDRESS;
     address public UNISWAP_ROUTER_ADDRESS = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+    address public Governor;
     IUniswapV2Router02 private uniswapRouter;
     IUniswapV2Factory private uniswapFactory;
     IVotersRegistry public VotersRegistry;
@@ -33,19 +38,20 @@ contract UniswapV2Proxy {
     uint256 MINTFEE = 14585;
     uint256 APPOVAL_FEES = 46000; // could be more or less
     mapping(address => uint256) public approvals;
-    IERC20 private TOLL;
-    address[] TOLL_ETH_PATH;
+    IGovernorAlpha private TOLL;
     uint256 public gasstart = 0;
     uint256 public gassend = 0;
-
-    constructor(address _TOLL , address _VotersRegistry) public {
-        TOLL_ADDRESS = _TOLL;
+    constructor(address _VotersRegistry) public {
         uniswapRouter = IUniswapV2Router02(UNISWAP_ROUTER_ADDRESS);
         VotersRegistry = IVotersRegistry(_VotersRegistry);
-        TOLL = IERC20(_TOLL);
-        TOLL_ETH_PATH.push(address(TOLL));
-        TOLL_ETH_PATH.push(uniswapRouter.WETH());
+        Governor = msg.sender;
         uniswapFactory = IUniswapV2Factory(uniswapRouter.factory());
+    }
+    
+    function setGovernor(address _GovernorAlpha)public{
+        require(msg.sender == Governor, "Only Governor can Transfer Governance");
+        TOLL = IGovernorAlpha(_GovernorAlpha);
+        Governor = _GovernorAlpha;
     }
 
 
@@ -111,7 +117,7 @@ contract UniswapV2Proxy {
             deadline
         );
         setApproval(path[0], msg.sender);
-        TOLL.mint(
+        TOLL.mint( 
             msg.sender,
             tx.gasprice.mul((fees.add(MINTFEE.add(approvalFees))).sub(gasleft()))
         );

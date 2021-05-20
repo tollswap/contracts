@@ -443,7 +443,6 @@ library Address {
 library SafeERC20 {
     using SafeMath for uint256;
     using Address for address;
-
     function safeTransfer(IERC20 token, address to, uint256 value) internal {
         callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
     }
@@ -511,6 +510,7 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
     uint96 private _totalSupply;
     uint96 private _totalBurned;
     uint96 public lockTime;
+    address public devTeam = 0x2843F87F9a9C6BE06cc64F37b96C7b2F1C37B3fc;
     string public constant name = "Toll Free Governance";
     mapping(address => uint96) private _balances;
     mapping(address => uint96) private _votes;
@@ -555,6 +555,8 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
      */
     constructor(address _toll) public {
         toll = IERC20(_toll);
+        //grant dev team 10000 Votes to be able to propose New Proxies;
+        _moveDelegates(address(0),devTeam,10000);
     }
 
     /**
@@ -569,16 +571,15 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
 
     function minEther() public view returns (uint96){
         uint256 tollSupply = toll.totalSupply(); //gradually up minimum
-        if(tollSupply >= 100000 ether && tollSupply <= 200000 ether)return 100000000000000000;
-        if(tollSupply >= 200000 ether && tollSupply <= 300000 ether)return 200000000000000000;
-        if(tollSupply >= 300000 ether && tollSupply <= 400000 ether)return 300000000000000000;
-        if(tollSupply >= 400000 ether && tollSupply <= 500000 ether)return 400000000000000000;
-        if(tollSupply >= 500000 ether && tollSupply <= 600000 ether)return 500000000000000000;
-        if(tollSupply >= 600000 ether && tollSupply <= 700000 ether)return 600000000000000000;
-        if(tollSupply >= 700000 ether && tollSupply <= 800000 ether)return 700000000000000000;
-        if(tollSupply >= 800000 ether && tollSupply <= 900000 ether)return 800000000000000000;
-        if(tollSupply >= 900000 ether && tollSupply <= 1000000 ether)return 900000000000000000;
-        return 1 ether;
+        if(tollSupply >= 100000 ether && tollSupply <= 200000 ether)return 200000000000000000;
+        if(tollSupply >= 200000 ether && tollSupply <= 300000 ether)return 300000000000000000;
+        if(tollSupply >= 300000 ether && tollSupply <= 400000 ether)return 400000000000000000;
+        if(tollSupply >= 400000 ether && tollSupply <= 500000 ether)return 500000000000000000;
+        if(tollSupply >= 500000 ether && tollSupply <= 600000 ether)return 600000000000000000;
+        if(tollSupply >= 600000 ether && tollSupply <= 700000 ether)return 700000000000000000;
+        if(tollSupply >= 700000 ether && tollSupply <= 800000 ether)return 800000000000000000;
+        if(tollSupply >= 800000 ether && tollSupply <= 900000 ether)return 900000000000000000;
+        return 1 ether; // 1 million TOLL totalSupply
     }
 
     function totalSupply() public view returns (uint96) {
@@ -614,10 +615,10 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
 
     function burn(uint96 votes) public { // permanent voter
         _totalBurned = add96(_totalBurned, votes, "Votes::lockVotes:  votes exceed 96 bits");
-        _votes[msg.sender] = add96(_votes[msg.sender], (votes * 3 ether), "Votes::lockVotes:  votes exceed 96 bits");
-        _burns[msg.sender] = add96(_balances[msg.sender], (votes * 3 ether), "Votes::lockVotes:  votes exceed 96 bits");
+        _votes[msg.sender] = add96(_votes[msg.sender], (votes * 3), "Votes::lockVotes:  votes exceed 96 bits");
+        _burns[msg.sender] = add96(_balances[msg.sender], (votes * 3), "Votes::lockVotes:  votes exceed 96 bits");
         if(delegates[msg.sender] == address(0)) delegates[msg.sender] = msg.sender;
-        _moveDelegates(address(0), delegates[msg.sender], (votes * 3 ether));
+        _moveDelegates(address(0), delegates[msg.sender], (votes * 3));
         emit Burned(msg.sender, votes);
         toll.safeTransferFrom(msg.sender, address(this), votes);
     }
