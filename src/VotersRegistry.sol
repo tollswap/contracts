@@ -1,8 +1,4 @@
 pragma solidity ^0.5.0;
-// File: @openzeppelin/contracts/math/Math.sol
-/**
- * @dev Standard math utilities missing in the Solidity language.
- */
 library Math {
     /**
      * @dev Returns the largest of two numbers.
@@ -555,9 +551,9 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
     event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);
    /**
      * @notice Constructor
-     * @param address The address of TOLL contract
+     * @param _toll The address of TOLL contract
      */
-    constructor( address _toll) public {
+    constructor(address _toll) public {
         toll = IERC20(_toll);
     }
 
@@ -567,11 +563,12 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
      */
 
     function  isEligible(address transactor) public view returns(bool) {
-       return _votes[transactor] > 1 ether || toll.balanceOf(transactor) > minEther();
+        uint96 minEth = minEther();
+        return _votes[transactor] >= minEth || toll.balanceOf(transactor) >= minEth;
     }
 
-    function minEther() public view{
-        uint96 tollSupply = toll.totalSupply(); //gradually up minimum
+    function minEther() public view returns (uint96){
+        uint256 tollSupply = toll.totalSupply(); //gradually up minimum
         if(tollSupply >= 100000 ether && tollSupply <= 200000 ether)return 100000000000000000;
         if(tollSupply >= 200000 ether && tollSupply <= 300000 ether)return 200000000000000000;
         if(tollSupply >= 300000 ether && tollSupply <= 400000 ether)return 300000000000000000;
@@ -659,9 +656,9 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
         bytes32 structHash = keccak256(abi.encode(DELEGATION_TYPEHASH, delegatee, nonce, expiry));
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", domainSeparator, structHash));
         address signatory = ecrecover(digest, v, r, s);
-        require(signatory != address(0), "Uni::delegateBySig: invalid signature");
-        require(nonce == nonces[signatory]++, "Uni::delegateBySig: invalid nonce");
-        require(now <= expiry, "Uni::delegateBySig: signature expired");
+        require(signatory != address(0), "Toll::delegateBySig: invalid signature");
+        require(nonce == nonces[signatory]++, "Toll::delegateBySig: invalid nonce");
+        require(now <= expiry, "Toll::delegateBySig: signature expired");
         return _delegate(signatory, delegatee);
     }
 
@@ -683,7 +680,7 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
      * @return The number of votes the account had as of the given block
      */
     function getPriorVotes(address account, uint blockNumber) public view returns (uint96) {
-        require(blockNumber < block.number, "Uni::getPriorVotes: not yet determined");
+        require(blockNumber < block.number, "Toll::getPriorVotes: not yet determined");
         uint32 nCheckpoints = numCheckpoints[account];
         if (nCheckpoints == 0) {
             return 0;
@@ -725,21 +722,21 @@ contract VoterRegistry {   // this contract allows long time users of toll to vo
             if (srcRep != address(0)) {
                 uint32 srcRepNum = numCheckpoints[srcRep];
                 uint96 srcRepOld = srcRepNum > 0 ? checkpoints[srcRep][srcRepNum - 1].votes : 0;
-                uint96 srcRepNew = sub96(srcRepOld, amount, "Uni::_moveVotes: vote amount underflows");
+                uint96 srcRepNew = sub96(srcRepOld, amount, "Toll::_moveVotes: vote amount underflows");
                 _writeCheckpoint(srcRep, srcRepNum, srcRepOld, srcRepNew);
             }
 
             if (dstRep != address(0)) {
                 uint32 dstRepNum = numCheckpoints[dstRep];
                 uint96 dstRepOld = dstRepNum > 0 ? checkpoints[dstRep][dstRepNum - 1].votes : 0;
-                uint96 dstRepNew = add96(dstRepOld, amount, "Uni::_moveVotes: vote amount overflows");
+                uint96 dstRepNew = add96(dstRepOld, amount, "Toll::_moveVotes: vote amount overflows");
                 _writeCheckpoint(dstRep, dstRepNum, dstRepOld, dstRepNew);
             }
         }
     }
 
     function _writeCheckpoint(address delegatee, uint32 nCheckpoints, uint96 oldVotes, uint96 newVotes) internal {
-      uint32 blockNumber = safe32(block.number, "Uni::_writeCheckpoint: block number exceeds 32 bits");
+      uint32 blockNumber = safe32(block.number, "Toll::_writeCheckpoint: block number exceeds 32 bits");
       if (nCheckpoints > 0 && checkpoints[delegatee][nCheckpoints - 1].fromBlock == blockNumber) {
           checkpoints[delegatee][nCheckpoints - 1].votes = newVotes;
       } else {

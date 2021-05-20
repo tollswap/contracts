@@ -44,10 +44,26 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
+			"addMinter(address)": "983b2d56",
 			"totalSupply()": "18160ddd"
 		}
 	},
 	"abi": [
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				}
+			],
+			"name": "addMinter",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
 		{
 			"constant": true,
 			"inputs": [],

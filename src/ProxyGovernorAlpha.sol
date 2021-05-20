@@ -152,8 +152,6 @@ contract ProxyGovernorAlpha {
         emit ProposalQueued(proposalId, eta);
     }
 
-  
-
     function execute(uint proposalId) public payable {
         require(state(proposalId) == ProposalState.Queued, "GovernorAlpha::execute: proposal can only be executed if it is queued");
         Proposal storage proposal = proposals[proposalId];

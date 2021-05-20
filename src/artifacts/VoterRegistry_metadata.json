@@ -6,6 +6,18 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_toll",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -16,9 +28,9 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "votes",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"name": "Burned",
@@ -85,9 +97,9 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "votes",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"name": "Exited",
@@ -104,9 +116,9 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "votes",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"name": "Locked",
@@ -146,9 +158,9 @@
 				"constant": false,
 				"inputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "votes",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"name": "burn",
@@ -169,9 +181,9 @@
 				"name": "burnOf",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"payable": false,
@@ -203,21 +215,6 @@
 						"internalType": "uint96",
 						"name": "votes",
 						"type": "uint96"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [],
-				"name": "config",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
 					}
 				],
 				"payable": false,
@@ -304,9 +301,9 @@
 				"constant": false,
 				"inputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "votes",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"name": "exit",
@@ -364,21 +361,6 @@
 			},
 			{
 				"constant": true,
-				"inputs": [],
-				"name": "governance",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -400,21 +382,6 @@
 			},
 			{
 				"constant": true,
-				"inputs": [],
-				"name": "lock",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
 				"inputs": [
 					{
 						"internalType": "address",
@@ -425,9 +392,9 @@
 				"name": "lockOf",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"payable": false,
@@ -440,9 +407,9 @@
 				"name": "lockTime",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"payable": false,
@@ -453,9 +420,9 @@
 				"constant": false,
 				"inputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "votes",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"name": "lockVotes",
@@ -467,12 +434,12 @@
 			{
 				"constant": true,
 				"inputs": [],
-				"name": "minimum",
+				"name": "minEther",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"payable": false,
@@ -539,82 +506,6 @@
 			{
 				"constant": true,
 				"inputs": [],
-				"name": "period",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [],
-				"name": "proposalCount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "proposals",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "proposer",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "totalForVotes",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "totalAgainstVotes",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "start",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "end",
-						"type": "uint256"
-					}
-				],
-				"payable": false,
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"constant": true,
-				"inputs": [],
 				"name": "toll",
 				"outputs": [
 					{
@@ -633,9 +524,9 @@
 				"name": "totalBurned",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"payable": false,
@@ -648,9 +539,9 @@
 				"name": "totalSupply",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"payable": false,
@@ -690,9 +581,9 @@
 				"name": "voteOf",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint96",
 						"name": "",
-						"type": "uint256"
+						"type": "uint96"
 					}
 				],
 				"payable": false,
@@ -702,6 +593,11 @@
 		],
 		"devdoc": {
 			"methods": {
+				"constructor": {
+					"params": {
+						"_toll": "The address of TOLL contract"
+					}
+				},
 				"delegate(address)": {
 					"params": {
 						"delegatee": "The address to delegate votes to"
@@ -740,6 +636,7 @@
 		},
 		"userdoc": {
 			"methods": {
+				"constructor": "Constructor",
 				"delegate(address)": {
 					"notice": "Delegate votes from `msg.sender` to `delegatee`"
 				},
@@ -772,10 +669,10 @@
 	},
 	"sources": {
 		"src/VotersRegistry.sol": {
-			"keccak256": "0x3617d1e28de6d6dca2c1c208641187597f18f39a74ab11d7ce3bc820c5a7af26",
+			"keccak256": "0x941942f816fecf41bba3c101352aa1fcad6de4d1eda5e7adb3bbfee74794833d",
 			"urls": [
-				"bzz-raw://f54ccac1c9daa89ffa6b5f06dd4e1e041584489e25aab588eded33a7fd8b0d4f",
-				"dweb:/ipfs/QmR8zYMrBWxihA5JRitbff9ejoyapNqvTUR7gqgaXHfFPU"
+				"bzz-raw://52c3e565560f213e447651029103e5305ca69c277272dc39247387f769aff8ce",
+				"dweb:/ipfs/QmaPVK1Skfe4n5kBJwLyx96v2CNHXtUcSmziqAD4tokjc5"
 			]
 		}
 	},

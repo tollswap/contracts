@@ -192,7 +192,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"src/GovernorAlpha.sol": "TimelockInterface"
+			"src/ProxyGovernorAlpha.sol": "TimelockInterface"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -210,11 +210,11 @@
 				"dweb:/ipfs/QmbZaJyXdpsYGykVhHH9qpVGQg9DGCxE2QufbCUy3daTgq"
 			]
 		},
-		"src/GovernorAlpha.sol": {
-			"keccak256": "0x35f9ed41651d6fad5e3dd58dc3eca3a36e5ef15d1fd68df86e28eef63e7f2d56",
+		"src/ProxyGovernorAlpha.sol": {
+			"keccak256": "0x0a6f7481840583f400492e391f80ee7d0b84fd5d4675c500529b60e24bb9e18e",
 			"urls": [
-				"bzz-raw://9742241f0882bb3674aa116e8bb82157c6c9221af340adfdb6825aa7570eeed0",
-				"dweb:/ipfs/QmNoJ1a6uAv4hRrMLbhinyGR5ipQHK5CaT2t4ybgDwRAMH"
+				"bzz-raw://484aed1af157aa056c65b0303bdf1ce0cf18345ebeea2cddca7ed6ac444c90a3",
+				"dweb:/ipfs/QmY4pJjavpgqsn6vBWXNyKvNnkKrKhYFSs1yHCY86p11GQ"
 			]
 		}
 	},

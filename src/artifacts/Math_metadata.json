@@ -6,7 +6,6 @@
 	"output": {
 		"abi": [],
 		"devdoc": {
-			"details": "Standard math utilities missing in the Solidity language.",
 			"methods": {}
 		},
 		"userdoc": {
@@ -27,10 +26,10 @@
 	},
 	"sources": {
 		"src/VotersRegistry.sol": {
-			"keccak256": "0x3617d1e28de6d6dca2c1c208641187597f18f39a74ab11d7ce3bc820c5a7af26",
+			"keccak256": "0x941942f816fecf41bba3c101352aa1fcad6de4d1eda5e7adb3bbfee74794833d",
 			"urls": [
-				"bzz-raw://f54ccac1c9daa89ffa6b5f06dd4e1e041584489e25aab588eded33a7fd8b0d4f",
-				"dweb:/ipfs/QmR8zYMrBWxihA5JRitbff9ejoyapNqvTUR7gqgaXHfFPU"
+				"bzz-raw://52c3e565560f213e447651029103e5305ca69c277272dc39247387f769aff8ce",
+				"dweb:/ipfs/QmaPVK1Skfe4n5kBJwLyx96v2CNHXtUcSmziqAD4tokjc5"
 			]
 		}
 	},
